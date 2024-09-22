@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const admin_controller_1 = require("../controllers/admin.controller");
+const multer_middleware_1 = require("../middlewares/multer.middleware");
+const adminRouter = (0, express_1.Router)();
+adminRouter.post("/add-product", multer_middleware_1.upload.single("image"), admin_controller_1.addProduct);
+adminRouter.post("/update-product/:productId", multer_middleware_1.upload.single("image"), admin_controller_1.updateProduct);
+adminRouter.get("/products", admin_controller_1.getProducts);
+adminRouter.get("/product-details/:productId", admin_controller_1.getProductDetails);
+adminRouter.delete("/delete-product/:productId", admin_controller_1.deleteProduct);
+exports.default = adminRouter;
