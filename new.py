@@ -4,7 +4,7 @@ from PIL import Image
 import google.generativeai as genai
 
 # Configure Google Generative AI
-genai.configure(api_key="AIzaSyDU6r_QdEfmKCgN7DNS_NPJsSy1smMR2v8")
+genai.configure(api_key="")
 model = genai.GenerativeModel('gemini-1.5-flash')
 lang_model = genai.GenerativeModel('gemini-pro')
 
