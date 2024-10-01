@@ -83,6 +83,8 @@ Introducing MED-O-NEXT, a groundbreaking all-in-one medical web app designed to 
 
 ## Contribution Guide
 
+
+
 We welcome contributions from the community! To contribute, please follow these steps:
 
 1. **Fork the Repository**
@@ -118,6 +120,9 @@ We welcome contributions from the community! To contribute, please follow these 
    ```bash
    git push origin feature/YourFeatureName
    ```
+   <hr/>
+
+# **WE DON'T WANT ANY MORE CONTRIBUTIONS IN THE LANDING SCREEN {MAIN BRANCH}. PLEASE LOOK INTO THE OTHER BRANCHES.**
 
 ## :zap: Thanks to all Contributors 💪
 
