@@ -1,5 +1,23 @@
 # Med-o-Next : Here Sickness Is A Myth
 
+## :zap: Open Source Programs ❄️
+
+<table>
+<tr>
+
+  <td align="center">
+   <a href="https://gssoc.girlscript.tech/">
+    <img src="https://github.com/Avdhesh-Varshney/WebMasterLog/assets/114330097/170d7ab8-ff9b-44ec-9ac1-45ef72c82c55" height=100px /><br />
+    <sub><b>GSSoC 2024 Extended</b></sub>
+   </a>
+ </td>
+ 
+</tr>
+</table>
+
+
+
+
 ## Problem Statement
 
 In today’s fast-paced world, managing health for oneself or family can become overwhelming. From booking appointments to understanding prescriptions, patients often struggle to juggle multiple platforms for their healthcare needs. There is a need for a unified solution that simplifies healthcare access, empowers patients with knowledge, and integrates intelligent technologies to improve well-being.
@@ -62,3 +80,53 @@ Introducing MED-O-NEXT, a groundbreaking all-in-one medical web app designed to 
   - [Subham Mani](https://github.com/iSubhamMan)
   - [Sayambar Roy Chowdhury](https://github.com/Sayambar2004)
   - [Ronit Bose](https://github.com/rbose3)
+
+## Contribution Guide
+
+We welcome contributions from the community! To contribute, please follow these steps:
+
+1. **Fork the Repository**
+
+   Click the "Fork" button at the top right corner of this repository's page.
+
+2. **Clone Your Fork**
+
+   ```bash
+   git clone https://github.com/Megh2005/Med-o-Next.git --branch <branch> --single-branch
+   cd Med-o-Next
+   npm install
+   ```
+
+3. **Create a New Branch**
+
+   ```bash
+   git checkout -b feature/YourFeatureName
+   ```
+
+4. **Make Your Changes**
+
+   Implement your feature or fix a bug.
+
+5. **Commit Your Changes**
+
+   ```bash
+   git commit -m "Add feature: YourFeatureName"
+   ```
+
+6. **Push to Your Fork**
+
+   ```bash
+   git push origin feature/YourFeatureName
+   ```
+
+## :zap: Thanks to all Contributors 💪
+
+<div align="center">
+  <a href="https://github.com/Megh2005/Med-o-Next/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Megh2005/Med-o-Next" />
+</a>
+</div>
+
+7. **Create a Pull Request**
+
+   Go to the original repository and create a pull request from your fork.
