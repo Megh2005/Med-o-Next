@@ -54,7 +54,7 @@ Introducing MED-O-NEXT, a groundbreaking all-in-one medical web app designed to 
 
 - **_Frontend_**
   <br/>
-  ![](https://skillicons.dev/icons?i=js,html,tailwind,vite,next)
+  ![](https://skillicons.dev/icons?i=js,html,tailwind,vite,next,python)
 
 - **_Backend_**
   <br />
