@@ -80,6 +80,7 @@ Introducing MED-O-NEXT, a groundbreaking all-in-one medical web app designed to 
   - [Subham Mani](https://github.com/iSubhamMan)
   - [Sayambar Roy Chowdhury](https://github.com/Sayambar2004)
   - [Ronit Bose](https://github.com/rbose3)
+  - [janhavi7276](https://github.com/janhavi7276)
 
 ## Contribution Guide
 
