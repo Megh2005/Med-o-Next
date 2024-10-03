@@ -1,4 +1,5 @@
 # Med-o-Next : Here Sickness Is A Myth
+## STAR THE REPO BEFORE ADDING ANY CONTRIBUTION / RAISING ANY ISSUE
 
 ## :zap: Open Source Programs ❄️
 
