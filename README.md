@@ -122,16 +122,10 @@ We welcome contributions from the community! To contribute, please follow these 
    ```
    <hr/>
 
-# **WE DON'T WANT ANY MORE CONTRIBUTIONS IN THE LANDING SCREEN {MAIN BRANCH}. PLEASE LOOK INTO THE OTHER BRANCHES.**
-
-## :zap: Thanks to all Contributors 💪
-
-<div align="center">
-  <a href="https://github.com/Megh2005/Med-o-Next/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Megh2005/Med-o-Next" />
-</a>
-</div>
 
 7. **Create a Pull Request**
 
    Go to the original repository and create a pull request from your fork.
+
+
+   # **WE DON'T WANT ANY MORE CONTRIBUTIONS IN THE LANDING SCREEN [MAIN BRANCH]. PLEASE LOOK INTO THE OTHER BRANCHES.**
