@@ -18,9 +18,12 @@ import signinSchema from "@/lib/schemas/signin.schema";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "@/utils/constants";
+import { AiOutlineEyeInvisible,AiOutlineEye } from "react-icons/ai";
+
 
 const Signin = () => {
   const [submitting, setSubmiting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useNavigate();
 
   const form = useForm<z.infer<typeof signinSchema>>({
@@ -91,11 +94,18 @@ const Signin = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Enter a password"
-                      {...field}
-                    />
+                  <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter a password"
+                        {...field}
+                      />
+                      <span 
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-2 top-[0.6rem] text-xl text-[#686868]">
+                        {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                        </span>
+                      </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
