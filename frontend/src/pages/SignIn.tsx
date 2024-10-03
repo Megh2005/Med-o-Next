@@ -13,14 +13,15 @@ import {
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, Eye, EyeOff } from "lucide-react";  // Import Eye and EyeOff icons
 import signinSchema from "@/lib/schemas/signin.schema";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "@/utils/constants";
 
 const Signin = () => {
-  const [submitting, setSubmiting] = useState(false);
+  const [submitting, setSubmiting] = useState(false);  // State to manage the submitting status
+  const [showPassword, setShowPassword] = useState(false);   // State for managing password visibility
   const router = useNavigate();
 
   const form = useForm<z.infer<typeof signinSchema>>({
@@ -91,11 +92,21 @@ const Signin = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Enter a password"
-                      {...field}
-                    />
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"} // Toggle input type based on state
+                        placeholder="Enter your password"
+                        {...field}
+                      />
+                      <button
+                        type="button" // Button to toggle password visibility
+                        onClick={() => setShowPassword((prev) => !prev)} // Toggle password visibility
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                      >
+                        {/* Conditional rendering of eye icon based on visibility state */}
+                        {showPassword ? <EyeOff /> : <Eye />} 
+                      </button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

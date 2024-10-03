@@ -18,9 +18,13 @@ import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "@/utils/constants";
+import { Eye, EyeOff } from "lucide-react"; // Import Eye and EyeOff icons
 
 const Signup = () => {
-  const [submiting, setSubmiting] = useState(false);
+  const [submiting, setSubmiting] = useState(false);  // State to manage the submitting status
+  const [showPassword, setShowPassword] = useState(false);  // State for managing password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);  // State for managing password visibility
+
   const router = useNavigate();
 
   const form = useForm<z.infer<typeof signupSchema>>({
@@ -142,11 +146,20 @@ const Signup = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Enter a password"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"} // Toggle input type based on state
+                          placeholder="Enter a password"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((prev) => !prev)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                        >
+                          {showPassword ? <EyeOff /> : <Eye />}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -159,11 +172,21 @@ const Signup = () => {
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Enter the password again"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showConfirmPassword ? "text" : "password"}  // Toggle input type based on state
+                          placeholder="Enter the password again"
+                          {...field}
+                        />
+                        <button
+                          type="button"  // Button to toggle password visibility
+                          onClick={() => setShowConfirmPassword((prev) => !prev)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                        >
+                          {/* Conditional rendering of eye icon based on visibility state */}
+                          {showConfirmPassword ? <EyeOff /> : <Eye />} 
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
