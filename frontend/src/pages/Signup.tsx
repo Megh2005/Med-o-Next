@@ -18,9 +18,14 @@ import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "@/utils/constants";
+import { AiOutlineEyeInvisible,AiOutlineEye } from "react-icons/ai";
+
 
 const Signup = () => {
   const [submiting, setSubmiting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const router = useNavigate();
 
   const form = useForm<z.infer<typeof signupSchema>>({
@@ -142,16 +147,24 @@ const Signup = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
+                      <div className="relative">
                       <Input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         placeholder="Enter a password"
                         {...field}
                       />
+                      <span 
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-2 top-[0.6rem] text-xl text-[#686868]">
+                        {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                        </span>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="confirmPassword"
@@ -159,11 +172,18 @@ const Signup = () => {
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
+                    <div className="relative">
                       <Input
-                        type="password"
-                        placeholder="Enter the password again"
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Enter a password"
                         {...field}
                       />
+                      <span 
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-2 top-[0.6rem] text-xl text-[#686868]">
+                        {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                        </span>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
