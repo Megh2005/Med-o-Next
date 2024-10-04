@@ -3,6 +3,8 @@ import os
 from PIL import Image
 import google.generativeai as genai
 from googletrans import Translator
+from gtts import gTTS
+import tempfile
 
 # Configure Google Generative AI with API key from environment variable
 api_key = os.getenv("API_KEY")
@@ -37,15 +39,23 @@ def input_image_setup(uploaded_file):
 # Initialize the translator
 translator = Translator()
 
+# Function to convert text to speech
+def speak_text(text, lang='en'):
+    tts = gTTS(text=text, lang=lang)  # Create TTS object
+    # Save to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as tmp_file:
+        tts.save(tmp_file.name)
+        return tmp_file.name
+
 # Sidebar logo and "About Med-O-Lens"
 team_logo = Image.open("logo.jpg")  # Replace with the actual path to your logo
 st.sidebar.image(team_logo, caption="Team TECH JANTA PARTY", use_column_width=True)
 
 st.sidebar.title("About Med-O-Lens")
 st.sidebar.markdown("""
-**MED-O-LENS** is an AI-powered utility that analyzes handwritten medical prescriptions to help users understand their medications.  
-It's a part of the broader **MED-O-NEXT** platform, designed to integrate technology into healthcare services for a seamless experience.  
-With MED-O-LENS, you can extract essential details like medicine names, uses, side effects, and safety advice, all with the help of AI.
+- **MED-O-LENS** is an AI-powered utility that analyzes handwritten medical prescriptions to help users understand their medications.  
+- It's a part of the broader **MED-O-NEXT** platform, designed to integrate technology into healthcare services for a seamless experience.  
+- With MED-O-LENS, you can extract essential details like medicine names, uses, side effects, and safety advice, all with the help of AI.
 """)
 
 # Developers Section
@@ -96,7 +106,32 @@ Each point under the heading should be in a bullet format.
 # Translation Feature
 st.subheader("Translation Settings")
 st.markdown("If you'd like to translate the response into another language, choose a target language below:")
-target_language = st.selectbox("Select target language:", ["None", "en", "es", "fr", "de", "zh-cn","hi","ja","ko","pt","ru","bn","bh","gu","ks","ml","ko","mr","ne","or","pa","sa","ta","te"])
+languages = [
+    "None",
+    "English (en)", 
+    "Spanish (es)", 
+    "French (fr)", 
+    "German (de)", 
+    "Chinese (zh-cn)", 
+    "Hindi (hi)", 
+    "Japanese (ja)", 
+    "Korean (ko)", 
+    "Portuguese (pt)", 
+    "Russian (ru)", 
+    "Bengali (bn)", 
+    "Bhojpuri (bh)", 
+    "Gujarati (gu)", 
+    "Kashmiri (ks)", 
+    "Malayalam (ml)", 
+    "Marathi (mr)", 
+    "Nepali (ne)", 
+    "Oriya (or)", 
+    "Punjabi (pa)", 
+    "Sanskrit (sa)", 
+    "Tamil (ta)", 
+    "Telugu (te)"
+]
+target_language = st.selectbox("Select target language:", languages)
 
 # Submit button and response handling
 submit = st.button("Tell me about the prescription")
@@ -110,8 +145,17 @@ if submit:
 
         # Handle translation
         if target_language != "None":
-            translation = translator.translate(medicine_name, dest=target_language)
+            lang_code = target_language.split('(')[-1].strip()[:-1]  # Extract language code
+            translation = translator.translate(medicine_name, dest=lang_code)
             st.subheader(f"Translated to {target_language.upper()}:")
             st.write(translation.text)
+
+            # Generate and play voice response for the translation
+            audio_file = speak_text(translation.text, lang=lang_code)
+            st.audio(audio_file, format='audio/mp3')
+        else:
+            # Generate and play voice response for the original response
+            audio_file = speak_text(medicine_name)
+            st.audio(audio_file, format='audio/mp3')
     else:
         st.error("Please upload a prescription image.")
