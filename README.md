@@ -1,5 +1,6 @@
 # Med-o-Next : Here Sickness Is A Myth
-## STAR THE REPO BEFORE ADDING ANY CONTRIBUTION / RAISING ANY ISSUE
+> [!IMPORTANT]
+> **Give a ⭐ to the repository before starting your contribution or raising an issue. Show some love or bhaichara 🫂**
 
 ## :zap: Open Source Programs ❄️
 
@@ -128,5 +129,51 @@ We welcome contributions from the community! To contribute, please follow these 
 
    Go to the original repository and create a pull request from your fork.
 
+## Issue Template
+   ```bash
+   Issue Title :
+   Isuue Description :
+   Issue Branch :
+   Your Approach :
+   ```
 
-   # **WE DON'T WANT ANY MORE CONTRIBUTIONS IN THE LANDING SCREEN [MAIN BRANCH]. PLEASE LOOK INTO THE OTHER BRANCHES.**
+## Contributors & Collaborators
+   <table>
+<tr>
+  <td align="center">
+   <a href="https://github.com/Sayambar2004/">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Sayambar2004"/><br />
+    <sub><b>Sayambar<br/>Collaborator</b></sub>
+   </a>
+ </td>
+  <td align="center">
+   <a href="https://github.com/Megh2005/">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Megh2005"/><br />
+    <sub><b>Megh<br/>Collaborator</b></sub>
+   </a>
+ </td>
+  <td align="center">
+   <a href="https://github.com/iSubhamMani/">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/iSubhamMani"/><br />
+    <sub><b>Subham<br/>Collaborator</b></sub>
+   </a>
+ </td>
+  <td align="center">
+   <a href="https://github.com/J-B-Mugundh/">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/J-B-Mugundh"/><br />
+    <sub><b>Mugundh J B<br/>Contributor L-2</b></sub>
+   </a>
+ </td>
+  <td align="center">
+   <a href="https://github.com/ash-k121">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/ash-k121"/><br />
+    <sub><b>Ashmeet<br/>Contributor L-1</b></sub>
+   </a>
+ </td>
+</tr>
+</table>
+
+> [!CAUTION]  
+> **WE DON'T WANT ANY MORE CONTRIBUTIONS IN THE LANDING SCREEN [MAIN BRANCH]. PLEASE LOOK INTO THE OTHER BRANCHES.**
+
+
