@@ -181,7 +181,7 @@ We welcome contributions from the community! To contribute, please follow these 
 <td align="center">
    <a href="https://github.com/Rizvi-Faiz">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Rizvi-Faiz"/><br />
-    <sub><b>Rizvi Faiz Syed<br/>Contributor L-3</b></sub>
+    <sub><b>Rizvi Faiz<br/>Contributor L-3</b></sub>
    </a>
  </td>
 </tr>
