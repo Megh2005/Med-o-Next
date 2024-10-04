@@ -7,7 +7,7 @@ from gtts import gTTS
 import tempfile
 
 # Configure Google Generative AI with API key from environment variable
-api_key = api_key = os.getenv("API_KEY")
+api_key = os.getenv("API_KEY")
 if api_key:
     genai.configure(api_key=api_key)
 else:
