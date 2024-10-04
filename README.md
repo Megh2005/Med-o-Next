@@ -13,7 +13,6 @@
     <sub><b>GSSoC 2024 Extended</b></sub>
    </a>
  </td>
- 
 </tr>
 </table>
 
@@ -220,7 +219,7 @@ We welcome contributions from the community! To contribute, please follow these 
   <td align="center">
    <a href="https://github.com/ash-k121">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/ash-k121"/><br />
-    <sub><b>Ashmeet<br/>Contributor L-1</b></sub>
+    <sub><b>Ashmeet Kaur<br/>Contributor L-1</b></sub>
    </a>
  </td>
 </tr>
@@ -229,6 +228,12 @@ We welcome contributions from the community! To contribute, please follow these 
    <a href="https://github.com/Rizvi-Faiz">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Rizvi-Faiz"/><br />
     <sub><b>Rizvi Faiz<br/>Contributor L-3</b></sub>
+   </a>
+ </td>
+<td align="center">
+   <a href="https://github.com/Vishv0407">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Vishv0407"/><br />
+    <sub><b>Vishv Boda<br/>Contributor L-2</b></sub>
    </a>
  </td>
 </tr>
