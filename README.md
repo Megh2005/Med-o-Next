@@ -163,7 +163,7 @@ We welcome contributions from the community! To contribute, please follow these 
 <td align="center">
    <a href="https://github.com/rbose3">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/rbose3"/><br />
-    <sub><b>Ronit Bose<br/>Collaborator</b></sub>
+    <sub><b>Ronit<br/>Collaborator</b></sub>
    </a>
  </td>
   <td align="center">
