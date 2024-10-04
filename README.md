@@ -203,7 +203,9 @@ We welcome contributions from the community! To contribute, please follow these 
     <sub><b>Subham<br/>Collaborator</b></sub>
    </a>
  </td>
-<td align="center">
+</tr>
+<tr>
+  <td align="center">
    <a href="https://github.com/rbose3">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/rbose3"/><br />
     <sub><b>Ronit<br/>Collaborator</b></sub>
@@ -221,7 +223,9 @@ We welcome contributions from the community! To contribute, please follow these 
     <sub><b>Ashmeet<br/>Contributor L-1</b></sub>
    </a>
  </td>
-<td align="center">
+</tr>
+<tr>
+  <td align="center">
    <a href="https://github.com/Rizvi-Faiz">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Rizvi-Faiz"/><br />
     <sub><b>Rizvi Faiz<br/>Contributor L-3</b></sub>
