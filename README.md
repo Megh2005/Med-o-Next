@@ -2,7 +2,7 @@
 > [!IMPORTANT]
 > **Give a ⭐ to the repository before starting your contribution or raising an issue. Show some love or bhaichara 🫂**
 
-## :zap: Open Source Programs ❄️
+## ⚡️ Open Source Programs ❄️
 
 <table>
 <tr>
@@ -30,27 +30,65 @@ Introducing MED-O-NEXT, a groundbreaking all-in-one medical web app designed to 
 
 ## Key Features
 
-- **_Med-o-Chat_** : Users can chat with doctors in real-time to seek medical advice and clarify doubts.Video consultations are also available for a more personalized experience.
+- **Med-o-Chat**:
+  - Real-time medical consultations with certified doctors.
+  - Schedule video consultations for in-depth discussions.
+  - Share images and reports during chat for precise medical advice.
+  - *New!* Message history for better follow-up and patient-doctor communication.
 
-- **_Med-o-Shop_** : Users can order prescribed medications and refills from the manufacturers of that drug and get them delivered to their doorstep. We believe in providing authentic medications in cheapest rate to our users.
+- **Med-o-Shop**:
+  - Directly order authentic medications from certified manufacturers.
+  - Automatic refill reminders based on prescriptions.
+  - Transparent pricing and home delivery options available for every user.
+  - Discounted rates for long-term prescriptions and bulk orders.
 
-- **_Med-o-Lab_** : Users can book lab tests from nearby facilities and get the results delivered to them digitally. We have partnered with the best labs in the country to provide the best service to our users.
+- **Med-o-Lab**:
+  - Book lab tests from accredited nearby facilities with real-time availability updates.
+  - Digital test results delivery straight to the user’s profile.
+  - Compare lab test prices and choose based on quality and proximity.
+  - Partnered with top diagnostic centers for comprehensive healthcare services.
 
-- **_Med-o-Media_** : Users can stay updated with the latest health news, trends, and medical breakthroughs through our unique media service. We believe in promoting awareness in an ever-evolving healthcare landscape.
+- **Med-o-Media**:
+  - Stay updated with the latest health news, trends, and medical breakthroughs.
+  - Customizable health topics feed tailored to user preferences.
+  - Detailed articles from certified health experts and doctors.
 
-- **_Med-o-Lens_** : Users can upload images of their medical reports and prescriptions and our AI will convert the image to text and store it in their profile. This will help the users to access their reports anytime, anywhere.
+- **Med-o-Lens**:
+  - Upload and digitize medical reports and prescriptions with AI-powered OCR.
+  - Easily access and organize reports, prescriptions, and doctor notes in one place.
+  - Share medical reports instantly with your doctor or healthcare provider.
 
-- **_Med-o-AI_** : Users can ask our AI any medical-related questions and get instant answers. Our AI is designed to provide accurate and reliable information to our users.
+- **Med-o-AI**:
+  - Get instant answers to medical queries with our AI-driven assistant.
+  - Extensive knowledge base for reliable and accurate medical information.
+  - Personalize the AI responses based on user’s health history and preferences.
 
-- **_Med-o-Coach_** : Our AI will provide personalized health tips and reminders to the users based on their medical history and preferences. We believe in providing a holistic approach to healthcare.
+- **Med-o-Coach**:
+  - Personalized health coaching tailored to user’s medical history.
+  - Smart reminders for medication, lab tests, and routine check-ups.
+  - AI-powered health tips, exercise routines, and mental wellness guidance.
 
 ## Special Attributes
 
-- **_Language Independent_** : Our app is designed to cater to users from all over the world. We have integrated a language translation feature that can translate the app to any language the user prefers.
+- **Multi-Language Support**:
+  - Supports over 20 global languages, enabling accessibility for users across the world.
+  - Automatically detects the user's preferred language based on browser settings.
+  - Option for manual selection of language with seamless transition across all app features.
+  
+- **Accessibility-First Design**:
+  - Fully compatible with assistive technologies like screen readers (NVDA, JAWS).
+  - High-contrast themes and font size adjustment for users with visual impairments.
+  - Voice command capabilities for users with limited mobility.
+  
+- **User-Centric Experience**:
+  - Designed with simplicity and ease-of-use in mind for both tech-savvy and non-tech users.
+  - Intuitive navigation with quick access to key features like appointments, reports, and orders.
+  - Responsive design ensuring a consistent experience across mobile, tablet, and desktop.
 
-- **_Accessibility_** : Our app is designed to be accessible to everyone. We have integrated a screen reader feature that can read out the app content to the user.
-
-- **_User-Friendly_** : Our app is designed to be user-friendly. We have integrated a voice command feature that can help the user navigate through the app with voice commands.
+- **Data Privacy & Security**:
+  - End-to-end encryption for all sensitive health data.
+  - GDPR and HIPAA compliant, ensuring that user data is secure and confidential.
+  - Multi-factor authentication and role-based access control for added security.
 
 ## Tech Stack
 
@@ -96,7 +134,7 @@ We welcome contributions from the community! To contribute, please follow these 
 2. **Clone Your Fork**
 
    ```bash
-   git clone https://github.com/Megh2005/Med-o-Next.git --branch <branch> --single-branch
+   git clone https://github.com/Megh2005/Med-o-Next.git
    cd Med-o-Next
    npm install
    ```
@@ -111,13 +149,18 @@ We welcome contributions from the community! To contribute, please follow these 
 
    Implement your feature or fix a bug.
 
-5. **Commit Your Changes**
+5. **Stage Your Changes**
+
+   ```bash
+   git add .
+   ```
+6. **Commit Your Changes**
 
    ```bash
    git commit -m "Add feature: YourFeatureName"
    ```
 
-6. **Push to Your Fork**
+7. **Push to Your Fork**
 
    ```bash
    git push origin feature/YourFeatureName
@@ -125,7 +168,7 @@ We welcome contributions from the community! To contribute, please follow these 
    <hr/>
 
 
-7. **Create a Pull Request**
+8. **Create a Pull Request**
 
    Go to the original repository and create a pull request from your fork.
 
