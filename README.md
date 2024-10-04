@@ -133,8 +133,8 @@ We welcome contributions from the community! To contribute, please follow these 
 2. **Clone Your Fork**
 
    ```bash
-   git clone https://github.com/Megh2005/Med-o-Next.git
-   cd Med-o-Next
+   git clone https://github.com/Megh2005/Med-o-Next.git --branch <branch> --single-branch
+   cd <branch>
    npm install
    ```
 
