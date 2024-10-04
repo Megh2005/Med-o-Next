@@ -158,6 +158,12 @@ We welcome contributions from the community! To contribute, please follow these 
     <sub><b>Subham<br/>Collaborator</b></sub>
    </a>
  </td>
+<td align="center">
+   <a href="https://github.com/rbose3">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/rbose3"/><br />
+    <sub><b>Ronit Bose<br/>Collaborator</b></sub>
+   </a>
+ </td>
   <td align="center">
    <a href="https://github.com/J-B-Mugundh/">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/J-B-Mugundh"/><br />
@@ -168,6 +174,12 @@ We welcome contributions from the community! To contribute, please follow these 
    <a href="https://github.com/ash-k121">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/ash-k121"/><br />
     <sub><b>Ashmeet<br/>Contributor L-1</b></sub>
+   </a>
+ </td>
+<td align="center">
+   <a href="https://github.com/Rizvi-Faiz">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Rizvi-Faiz"/><br />
+    <sub><b>Rizvi Faiz Syed<br/>Contributor L-3</b></sub>
    </a>
  </td>
 </tr>
