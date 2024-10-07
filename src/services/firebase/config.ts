@@ -6,11 +6,11 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: "med-o-chat-71a5f.firebaseapp.com",
-  projectId: "med-o-chat-71a5f",
-  storageBucket: "med-o-chat-71a5f.appspot.com",
-  messagingSenderId: "324140349933",
-  appId: "1:324140349933:web:57c636ec60991b48e60fe4",
+  authDomain: "med-o-chat-613ec.firebaseapp.com",
+  projectId: "med-o-chat-613ec",
+  storageBucket: "med-o-chat-613ec.appspot.com",
+  messagingSenderId: "866214098188",
+  appId: "1:866214098188:web:e2e7bb5426b0ae91e9c529"
 };
 
 // Initialize Firebase

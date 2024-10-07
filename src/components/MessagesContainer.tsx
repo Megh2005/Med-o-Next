@@ -12,6 +12,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { updateLastMessage } from "@/lib/features/conversations/conversationsSlice";
 import { LastMessage } from "@/models/conversation.model";
 import toast from "react-hot-toast";
+import { pusherClient } from "@/lib/pusher";
 
 export interface CustomMessage {
   _id: string;
@@ -43,7 +44,6 @@ const MessagesContainer = ({ conversationId }: { conversationId: string }) => {
 
   const loadMessages = async () => {
     if (!memoizedConversationId) return;
-    console.log("Has more: ", hasMore);
     setLoading(true);
     try {
       const response = await axios.get(
@@ -107,6 +107,25 @@ const MessagesContainer = ({ conversationId }: { conversationId: string }) => {
 
   useNewMessage({ conversationId, handler: handleIncomingMessage });
 
+  useEffect(() => {
+    const channel = pusherClient.subscribe(`messages-${conversationId}`);
+
+    const handleEditedMessage = (updatedMessage: CustomMessage) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((message) =>
+          message._id === updatedMessage._id ? updatedMessage : message
+        )
+      );
+    };
+
+    channel.bind("message-edited", handleEditedMessage);
+
+    return () => {
+      channel.unbind("message-edited", handleEditedMessage);
+      pusherClient.unsubscribe(`messages-${conversationId}`);
+    };
+  }, [conversationId]);
+
   if (!memoizedConversationId) return null;
 
   return (
@@ -129,18 +148,14 @@ const MessagesContainer = ({ conversationId }: { conversationId: string }) => {
             const prevMessage = index === 0 ? null : messages[index - 1];
             const showDate =
               !prevMessage ||
-              new Date(
-                prevMessage.createdAt.toString()
-              ).toLocaleDateString() !==
+              new Date(prevMessage.createdAt.toString()).toLocaleDateString() !==
                 new Date(message.createdAt.toString()).toLocaleDateString();
 
             return (
               <React.Fragment key={message._id}>
                 {showDate && (
                   <p className="text-center text-xs md:text-sm text-gray-500 font-medium">
-                    {new Date(
-                      message.createdAt.toString()
-                    ).toLocaleDateString()}
+                    {new Date(message.createdAt.toString()).toLocaleDateString()}
                   </p>
                 )}
                 <div>
