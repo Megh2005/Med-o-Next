@@ -233,7 +233,13 @@ We welcome contributions from the community! To contribute, please follow these 
 <td align="center">
    <a href="https://github.com/Vishv0407">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Vishv0407"/><br />
-    <sub><b>Vishv Boda<br/>Contributor L-2</b></sub>
+    <sub><b>Vishv Boda<br/>Contributor L-1</b></sub>
+   </a>
+ </td>
+<td align="center">
+   <a href="https://github.com/Kaif9999">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Kaif9999"/><br />
+    <sub><b>Mohd Kaif<br/>Contributor L-2</b></sub>
    </a>
  </td>
 </tr>
