@@ -1,0 +1,64 @@
+name: Contributor Issue Form
+description: Use this form to submit issues related to Qrized
+title: "[ISSUE]"
+labels: ["needs triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to contribute to Qrized! Please fill out the following fields to help us understand and address your issue effectively.
+
+  - type: input
+    id: issue_name
+    attributes:
+      label: "ISSUE NAME"
+      description: "A short and descriptive title for your issue."
+      placeholder: "e.g., Improve QR scanning accuracy"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: "ISSUE DESCRIPTION"
+      description: "Provide a detailed description of the issue."
+      placeholder: "Describe the problem, steps to reproduce, and any other relevant information."
+    validations:
+      required: true
+
+  - type: textarea
+    id: your_approach
+    attributes:
+      label: "YOUR APPROACH"
+      description: "Describe how you plan to address this issue or implement the feature."
+      placeholder: "e.g., I will optimize the scanning algorithm by..."
+    validations:
+      required: true
+
+  - type: input
+    id: your_name
+    attributes:
+      label: "YOUR NAME"
+      description: "Your full name."
+      placeholder: "e.g., John Doe"
+    validations:
+      required: true
+
+  - type: input
+    id: your_github_profile
+    attributes:
+      label: "YOUR GITHUB PROFILE URL"
+      description: "Provide a link to your GitHub profile."
+      placeholder: "https://github.com/YourUsername"
+    validations:
+      required: true
+      pattern: '^https?://github\.com/.+'
+      errorMessage: "Please enter a valid GitHub profile URL."
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        Thank you for raising this issue! We will review your issue and get back to you shortly.
