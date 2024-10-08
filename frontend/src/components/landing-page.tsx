@@ -29,7 +29,9 @@ useEffect(() => {
   return () => {
     const stars = document.getElementsByClassName('star')
     while (stars.length > 0) {
-      stars[0].parentNode.removeChild(stars[0])
+      if (stars[0].parentNode) { // Check if parentNode is not null
+        stars[0].parentNode.removeChild(stars[0])
+      }
     }
   }
 }, [])
