@@ -1,5 +1,5 @@
 name: Contributor Issue Form
-description: Use this form to submit issues related to Qrized
+description: Use this form to submit issues related to Med-o-Next
 title: "[ISSUE]"
 labels: ["needs triage"]
 assignees: []
@@ -8,14 +8,14 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to contribute to Qrized! Please fill out the following fields to help us understand and address your issue effectively.
+        Thank you for taking the time to contribute to Med-o-Next! Please fill out the following fields to help us understand and address your issue effectively.
 
   - type: input
     id: issue_name
     attributes:
       label: "ISSUE NAME"
       description: "A short and descriptive title for your issue."
-      placeholder: "e.g., Improve QR scanning accuracy"
+      placeholder: "e.g., Improve Med-o-Coach features"
     validations:
       required: true
 
@@ -33,7 +33,7 @@ body:
     attributes:
       label: "YOUR APPROACH"
       description: "Describe how you plan to address this issue or implement the feature."
-      placeholder: "e.g., I will optimize the scanning algorithm by..."
+      placeholder: "e.g., I will optimize the diet prediction algorithm by..."
     validations:
       required: true
 
