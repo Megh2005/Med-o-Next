@@ -9,8 +9,14 @@
 
   <td align="center">
    <a href="https://gssoc.girlscript.tech/">
-    <img src="https://github.com/Avdhesh-Varshney/WebMasterLog/assets/114330097/170d7ab8-ff9b-44ec-9ac1-45ef72c82c55" height=100px /><br />
+    <img src="https://res.cloudinary.com/dmbxx03vp/image/upload/v1728447576/idlYg3TWPG_1728447561809_h5mfaq.png" height=100px /><br />
     <sub><b>GSSoC 2024 Extended</b></sub>
+   </a>
+ </td>
+ <td align="center">
+   <a href="https://hacktoberfest.com/">
+    <img src="https://res.cloudinary.com/dmbxx03vp/image/upload/v1728447086/vertical_beige_der6qn.png" height=100px /><br />
+    <sub><b>Hacktober Fest 2024</b></sub>
    </a>
  </td>
 </tr>
