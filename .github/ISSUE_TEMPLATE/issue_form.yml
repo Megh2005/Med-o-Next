@@ -24,7 +24,7 @@ body:
     attributes:
       label: "ISSUE BRANCH"
       description: "The Branch for which you are facing issue"
-      placeholder: "e.g., Improve Med-o-Coach features"
+      placeholder: "e.g., Main, Med-o-Lens, Med-o-Shop, Med-o-Chat etc"
     validations:
       required: true
 
