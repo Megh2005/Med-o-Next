@@ -248,6 +248,21 @@ We welcome contributions from the community! To contribute, please follow these 
     <sub><b>Mohd Kaif<br/>Contributor L-2</b></sub>
    </a>
  </td>
+<tr>
+  <td align="center">
+   <a href="https://github.com/say-het">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/say-het"/><br />
+    <sub><b>Het Modi<br/>Contributor L-2</b></sub>
+   </a>
+ </td>
+<td align="center">
+   <a href="https://github.com/AswaniBolisetti">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/AswaniBolisetti"/><br />
+    <sub><b>Aswani Bolisetti<br/>Contributor L-1</b></sub>
+   </a>
+ </td>
+</tr>
+
 </tr>
 </table>
 
