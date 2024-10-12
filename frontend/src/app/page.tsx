@@ -1,8 +1,12 @@
-import { LandingPageComponent } from "@/components/landing-page"; // Import the LandingPageComponent
+import { LandingPageComponent } from "@/components/landing-page"; 
+import MiniChatbot from "@/components/MiniChatbot";// Import the LandingPageComponent
+
 export default function Home() {
   return (
     <>
       <LandingPageComponent />
+      <MiniChatbot />
+      
     </>
   );
 }
