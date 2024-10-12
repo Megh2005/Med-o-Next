@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, Pill, Stethoscope, ShoppingCart, MessageCircle, Brain, Eye, Sun, Moon, ArrowUp, Link } from 'lucide-react' // Imported ArrowUp icon
-import ProfileCircle from './ui/profile'
+import { Heart, Pill, Stethoscope, ShoppingCart, MessageCircle, Brain, Eye, Sun, Moon, ArrowUp } from 'lucide-react' // Imported ArrowUp icon
 
 export function LandingPageComponent() {
   const [email, setEmail] = useState('')
@@ -62,40 +61,35 @@ export function LandingPageComponent() {
     })
   }
 
-return (
-  <div className={`flex flex-col min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} ${darkMode ? 'text-gray-100' : 'text-gray-900'} relative overflow-hidden transition-colors duration-300`}>
-    <div id="starry-background" className={`absolute inset-0 overflow-hidden pointer-events-none ${darkMode ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`} style={{ height: '100vh' }}></div>
-    
-    <header className="container mx-auto px-4 py-6 flex justify-between items-center relative z-10">
-      <div className="flex items-center space-x-2">
-        <div className="relative w-12 h-12">
-          <div className="absolute inset-0 bg-blue-600 rounded-full"></div>
-          <div className="absolute inset-1 bg-white rounded-full flex items-center justify-center">
-            <Heart className="h-6 w-6 text-blue-600" />
+  return (
+    <div className={`flex flex-col min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} ${darkMode ? 'text-gray-100' : 'text-gray-900'} relative overflow-hidden transition-colors duration-300`}>
+      <div id="starry-background" className={`absolute inset-0 overflow-hidden pointer-events-none ${darkMode ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`} style={{ height: '100vh' }}></div>
+      
+      <header className="container mx-auto px-4 py-6 flex justify-between items-center relative z-10">
+        <div className="flex items-center space-x-2">
+          <div className="relative w-12 h-12">
+            <div className="absolute inset-0 bg-blue-600 rounded-full"></div>
+            <div className="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+              <Heart className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="absolute top-0 right-0 w-4 h-4 bg-green-400 rounded-full"></div>
+            <div className="absolute bottom-0 left-0 w-4 h-4 bg-green-400 rounded-full"></div>
           </div>
-          <div className="absolute top-0 right-0 w-4 h-4 bg-green-400 rounded-full"></div>
-          <div className="absolute bottom-0 left-0 w-4 h-4 bg-green-400 rounded-full"></div>
+          <span className="text-2xl font-bold">MED-O-NEXT</span>
         </div>
-        <span className="text-2xl font-bold">MED-O-NEXT</span>
-      </div>
-      <nav className="hidden md:flex space-x-6">
-        <a href="#features" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Features</a>
-        <a href="#services" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Services</a>
-        <a href="#contact" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Contact</a>
-        <a href="/addNote" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Add Notes</a>
-
-      </nav>
-      <div className='space-x-4'>
-      <Button
-        variant="outline"
-        className={`${darkMode ? 'text-gray-300 border-gray-300' : 'text-gray-700 border-gray-700'} hover:bg-green-500 hover:text-white transition-colors`}
-        onClick={toggleDarkMode}
-      >
-        {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-      </Button>
-      <ProfileCircle/>
-      </div>
-    </header>
+        <nav className="hidden md:flex space-x-6">
+          <a href="#features" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Features</a>
+          <a href="#services" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Services</a>
+          <a href="#contact" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Contact</a>
+        </nav>
+        <Button
+          variant="outline"
+          className={`${darkMode ? 'text-gray-300 border-gray-300' : 'text-gray-700 border-gray-700'} hover:bg-green-500 hover:text-white transition-colors`}
+          onClick={toggleDarkMode}
+        >
+          {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </Button>
+      </header>
 
       <main>
         <section className="container mx-auto px-4 py-20 text-center flex-grow relative z-10 "style={{ minHeight: '100vh' }}>
