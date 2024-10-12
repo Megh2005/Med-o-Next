@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, Pill, Stethoscope, ShoppingCart, MessageCircle, Brain, Eye, Sun, Moon } from 'lucide-react'
+import { Heart, Pill, Stethoscope, ShoppingCart, MessageCircle, Brain, Eye, Sun, Moon, Link } from 'lucide-react'
+import ProfileCircle from './ui/profile'
 
 export function LandingPageComponent() {
 const [email, setEmail] = useState('')
@@ -60,7 +61,9 @@ return (
         <a href="#features" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Features</a>
         <a href="#services" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Services</a>
         <a href="#contact" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Contact</a>
+        <a href="/addNote" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Add Notes</a>
       </nav>
+      <div className='space-x-4'>
       <Button
         variant="outline"
         className={`${darkMode ? 'text-gray-300 border-gray-300' : 'text-gray-700 border-gray-700'} hover:bg-green-500 hover:text-white transition-colors`}
@@ -68,6 +71,8 @@ return (
       >
         {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
       </Button>
+      <ProfileCircle/>
+      </div>
     </header>
 
     <main>
