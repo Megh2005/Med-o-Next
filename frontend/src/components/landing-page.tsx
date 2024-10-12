@@ -97,7 +97,7 @@ export function LandingPageComponent() {
           <p className={`text-xl ${darkMode ? 'text-green-400' : 'text-green-600'} mb-8 max-w-2xl mx-auto`}>Revolutionizing healthcare with cutting-edge solutions for patients and professionals alike. Experience the future of medical services today.</p>
           <div className="flex justify-center space-x-4">
             <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white transition-colors">Get Started</Button>
-            <Button variant="outline" size="lg" className={`${darkMode ? 'text-gray-300 border-gray-300' : 'text-gray-700 border-gray-700'} hover:bg-green-500 hover:text-white transition-colors`}>Learn More</Button>
+            <Button variant="outline" size="lg" className={`${darkMode ? 'text-gray-500 border-gray-300' : 'text-gray-700 border-gray-700'} hover:bg-green-500 hover:text-white transition-colors`}>Learn More</Button>
           </div>
         </section>
 
