@@ -1,15 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Heart, Pill, Stethoscope, ShoppingCart, MessageCircle, Brain, Eye, Sun, Moon, ArrowUp } from 'lucide-react' // Imported ArrowUp icon
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '@/lib/firebaseConfig'
 
 export function LandingPageComponent() {
   const [email, setEmail] = useState('')
   const [darkMode, setDarkMode] = useState(false)
   const [isVisible, setIsVisible] = useState(false) // State for Scroll to Top button
+  const [name, setName] = useState('');
+  const [mailID, setMailID] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const createStar = () => {
@@ -61,10 +66,31 @@ export function LandingPageComponent() {
     })
   }
 
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      // Add the contact form data to the Firestore 'messages' collection
+      await addDoc(collection(db, 'messages'), {
+        name: name,
+        email: mailID,
+        message: message,
+        timestamp: new Date()
+      });
+      setName('');
+      setMailID('');
+      setMessage('');
+      alert('Message sent successfully!');
+    } catch (error) {
+      alert('Failed to send message. Please try again.');
+    }
+  };
+
   return (
     <div className={`flex flex-col min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} ${darkMode ? 'text-gray-100' : 'text-gray-900'} relative overflow-hidden transition-colors duration-300`}>
       <div id="starry-background" className={`absolute inset-0 overflow-hidden pointer-events-none ${darkMode ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`} style={{ height: '100vh' }}></div>
-      
+
       <header className="container mx-auto px-4 py-6 flex justify-between items-center relative z-10">
         <div className="flex items-center space-x-2">
           <div className="relative w-12 h-12">
@@ -92,7 +118,7 @@ export function LandingPageComponent() {
       </header>
 
       <main>
-        <section className="container mx-auto px-4 py-20 text-center flex-grow relative z-10 "style={{ minHeight: '100vh' }}>
+        <section className="container mx-auto px-4 py-20 text-center flex-grow relative z-10 " style={{ minHeight: '100vh' }}>
           <h1 className="text-5xl font-bold mb-6">The Extreme Problem Solver of Medical Industry</h1>
           <p className={`text-xl ${darkMode ? 'text-green-400' : 'text-green-600'} mb-8 max-w-2xl mx-auto`}>Revolutionizing healthcare with cutting-edge solutions for patients and professionals alike. Experience the future of medical services today.</p>
           <div className="flex justify-center space-x-4">
@@ -146,6 +172,42 @@ export function LandingPageComponent() {
         </section>
 
         <section id="contact" className="container mx-auto px-4 py-20 text-center">
+          <h2 className="text-3xl font-bold mb-6">Get in Touch with MED-O-NEXT</h2>
+          <p className={`text-xl ${darkMode ? 'text-green-400' : 'text-green-600'} mb-8 max-w-2xl mx-auto`}>
+            We're here to answer any questions you may have. Feel free to reach out!
+          </p>
+          <form onSubmit={handleSubmit} className="flex flex-col justify-center max-w-md mx-auto space-y-4">
+            <Input
+              type="text"
+              placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={`flex-grow ${darkMode ? 'bg-gray-700 text-gray-100 border-gray-600' : 'bg-white text-gray-900 border-gray-300'} transition-colors p-3 rounded`}
+              required
+              />
+            <Input
+              type="email"
+              placeholder="Your Email"
+              value={mailID}
+              onChange={(e) => setMailID(e.target.value)}
+              className={`flex-grow ${darkMode ? 'bg-gray-700 text-gray-100 border-gray-600' : 'bg-white text-gray-900 border-gray-300'} transition-colors p-3 rounded`}
+              required
+              />
+            <textarea
+              placeholder="Your Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className={`flex-grow ${darkMode ? 'bg-gray-700 text-gray-100 border-gray-600' : 'bg-white text-gray-900 border-gray-300'} transition-colors p-3 rounded h-32`}
+              required
+            />
+            <Button type="submit" className="bg-green-600 hover:bg-green-700 text-white transition-colors p-3 rounded">
+              Send Message
+            </Button>
+          </form>
+        </section>
+
+
+        <section id="contact" className="container mx-auto px-4 py-20 text-center">
           <h2 className="text-3xl font-bold mb-6">Stay Updated with MED-O-NEXT</h2>
           <p className={`text-xl ${darkMode ? 'text-green-400' : 'text-green-600'} mb-8 max-w-2xl mx-auto`}>Subscribe to our newsletter for the latest medical innovations and exclusive offers.</p>
           <form onSubmit={(e) => e.preventDefault()} className="flex justify-center max-w-md mx-auto">
@@ -176,18 +238,17 @@ export function LandingPageComponent() {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-6 right-6 p-3 rounded-full shadow-lg focus:outline-none transition-opacity duration-300 z-20 ${
-            darkMode
-              ? 'bg-gray-700 text-gray-100 hover:bg-gray-600'
-              : 'bg-white text-gray-700 hover:bg-gray-100'
-          }`}
+          className={`fixed bottom-6 right-6 p-3 rounded-full shadow-lg focus:outline-none transition-opacity duration-300 z-20 ${darkMode
+            ? 'bg-gray-700 text-gray-100 hover:bg-gray-600'
+            : 'bg-white text-gray-700 hover:bg-gray-100'
+            }`}
           aria-label="Scroll to Top"
         >
           <ArrowUp className="h-6 w-6" />
         </button>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes twinkle {
           0% { opacity: 0; transform: scale(0); }
           50% { opacity: 1; transform: scale(1); }
