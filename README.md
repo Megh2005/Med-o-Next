@@ -275,6 +275,12 @@ We welcome contributions from the community! To contribute, please follow these 
     <sub><b>aasiflm10<br/>Contributor L-3</b></sub>
    </a>
  </td>
+ <td align="center">
+   <a href="https://github.com/amitroy5817">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/amitroy5817"/><br />
+    <sub><b>Amit Roy<br/>Contributor L-2</b></sub>
+   </a>
+ </td>
 </tr>
 </tr>
 </table>
