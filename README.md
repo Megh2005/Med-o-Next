@@ -261,6 +261,12 @@ We welcome contributions from the community! To contribute, please follow these 
     <sub><b>Aswani Bolisetti<br/>Contributor L-1</b></sub>
    </a>
  </td>
+<td align="center">
+   <a href="https://github.com/Priyanshu282003">
+    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Priyanshu282003"/><br />
+    <sub><b>Priyanshu Dubey<br/>Contributor L-2</b></sub>
+   </a>
+ </td>
 </tr>
 
 </tr>
