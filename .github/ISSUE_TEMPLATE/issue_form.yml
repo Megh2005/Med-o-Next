@@ -66,6 +66,20 @@ body:
       pattern: '^https?://github\.com/.+'
       errorMessage: "Please enter a valid GitHub profile URL."
 
+  - type: checkboxes
+    id: issue_checkboxes
+    attributes:
+      label: "Please select the applicable categories"
+      description: "Check the boxes that apply to your issue."
+      options:
+        - label: "Hacktoberfest"
+        - label: "GSSOC'24 Extended"
+        - label: "Read Documentation"
+        - label: "Want more credentials"
+        - label: "Other"
+    validations:
+      required: true
+
   - type: markdown
     attributes:
       value: |
