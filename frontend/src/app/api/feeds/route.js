@@ -224,7 +224,7 @@ export async function GET() {
       feeds: nutrition,
     });
     console.log("Saved 1!");
-    // return new Response(JSON.stringify(res), { status: 200 });
+    return new Response(JSON.stringify({message: "Articles Saved to Db"}), { status: 200 });
   } catch (error) {
     toast.error("Error saving health feeds:");
     return new Response(JSON.stringify({ error: 'Failed to save feeds' }), { status: 400 });
