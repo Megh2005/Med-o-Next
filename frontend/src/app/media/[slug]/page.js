@@ -1,6 +1,6 @@
 // src/app/media/[slug]/page.js
 // This page dynamically displays an individual article based on its slug (unique identifier).
-import { db } from '@/utils/firebase';
+import { db } from '../../../utils/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
 export async function generateStaticParams() {
