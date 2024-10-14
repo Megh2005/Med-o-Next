@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 
-export default function myFeeds(){
+export default function MyFeeds(){
     const{user}=useAuth();
     const router=useRouter();
 

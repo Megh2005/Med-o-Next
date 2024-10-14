@@ -2,7 +2,7 @@
 import { db } from "../../utils/firebaseConfig";
 import { addDoc, collection, getDocs, setDoc } from "firebase/firestore";
 
-export async function dbArticles() {
+export async function DbArticles() {
   const apiKey = process.env.NEXT_PUBLIC_MEDIASTACK_API;
   const url = `http://api.mediastack.com/v1/news?access_key=${apiKey}&categories=health,-sports&languages=en,-de&limit=50`;
 

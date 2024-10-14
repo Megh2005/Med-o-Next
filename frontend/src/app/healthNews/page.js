@@ -4,10 +4,11 @@ import NewsCard from "../../components/NewsCard";
 import Pagination from "../../components/Pagination";
 import Filter from "../../components/Filter";
 import Spinner from "../../components/Spinner";
-import { dbArticles } from "./dbArticles";
+// import { dbArticles } from "";
 import { toast } from "react-toastify";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DbArticles } from "./dbArticles";
 
 export default function HealthNewsPage() {
   const [articles, setArticles] = useState([]);
@@ -21,7 +22,7 @@ export default function HealthNewsPage() {
     async function fetchNews() {
       try {
         setLoading(true);
-        const result = await dbArticles();
+        const result = await DbArticles();
         setLoading(false);
         setArticles(result);
       } catch (error) {

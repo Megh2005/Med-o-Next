@@ -3,7 +3,7 @@
 import { db } from '../../../utils/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
-export async function generateStaticParams() {
+export async function GenerateStaticParams() {
   const articlesCollection = collection(db, 'articles');
   const articleSnapshot = await getDoc(articlesCollection);
   const slugs = articleSnapshot.docs.map(doc => doc.id);

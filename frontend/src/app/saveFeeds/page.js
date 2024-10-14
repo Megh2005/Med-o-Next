@@ -4,7 +4,7 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-export default function saveFeeds(){
+export default function SaveFeeds(){
     useEffect(()=>{
        try {
         const response= fetch("/api/feeds");
