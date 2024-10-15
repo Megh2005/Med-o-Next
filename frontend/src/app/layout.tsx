@@ -1,35 +1,51 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
+import { useState } from 'react';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { ReactNode } from 'react';
 
-export const metadata: Metadata = {
-  title: "Med-O-Next",
-  description: "Med-O-Next the future of healthcare",
-};
+interface LayoutProps {
+  children: ReactNode;
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function Layout({ children }: LayoutProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prevState) => !prevState);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <div>
+      <header className="navbar">
+        <div className="logo">
+          <a href="/" onClick={closeMenu}>
+            MyApp
+          </a>
+        </div>
+        <button
+          className="menu-toggle"
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+          onClick={toggleMenu}
+        >
+          ☰
+        </button>
+        <nav className={`menu ${isMenuOpen ? 'show' : ''}`}>
+          <a href="/" onClick={closeMenu}>
+            Home
+          </a>
+          <a href="/about" onClick={closeMenu}>
+            About
+          </a>
+          <a href="/contact" onClick={closeMenu}>
+            Contact
+          </a>
+        </nav>
+      </header>
+      <main>{children}</main>
+    </div>
   );
 }
