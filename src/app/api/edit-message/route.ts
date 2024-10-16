@@ -1,4 +1,5 @@
 import { connectDB } from "@/lib/db";
+import prisma from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusher";
 import { MessageModel } from "@/models/message.model";
 import { ApiError } from "@/utils/ApiError";
@@ -7,7 +8,7 @@ import { CustomRequest } from "@/utils/CustomRequest";
 import mongoose from "mongoose";
 
 export async function PUT(req: CustomRequest) {
-  await connectDB();
+
 
   try {
     const { messageId, content, conversationId } = await req.json();
@@ -18,17 +19,20 @@ export async function PUT(req: CustomRequest) {
       });
     }
 
-    const message = await MessageModel.findById(messageId);
 
-    if (!message) {
-      return Response.json(new ApiError(404, "Message not found"), {
-        status: 404,
-      });
-    }
-
-    message.content = content;
-    message.translated_content = content;
-    const updatedMessage = await message.save();
+    const updatedMessage = await prisma.message.update({
+      where: {
+        id: messageId,
+      },
+      data: {
+        content,
+        translated_content: content
+      },
+      include: {
+        recipient: true,
+        sender: true,
+      }
+    })
 
     if (!updatedMessage) {
       return Response.json(new ApiError(500, "Failed to update message"), {
@@ -36,40 +40,35 @@ export async function PUT(req: CustomRequest) {
       });
     }
 
-    const newMessage = await MessageModel.aggregate([
-      {
-        $match: {
-          _id: new mongoose.Types.ObjectId(updatedMessage._id),
-        },
+
+    const newMessage = {
+      _id: updatedMessage.id,
+      content: updatedMessage.content,
+      translated_content: updatedMessage.translated_content,
+      createdAt: updatedMessage.createdAt,
+      updatedAt: updatedMessage.updatedAt,
+      sender: {
+        _id: updatedMessage.sender.googleId,
+        email: updatedMessage.sender.email,
+        displayName: updatedMessage.sender.name,
+        photoURL: updatedMessage.sender.photoURL,
+        createdAt: updatedMessage.sender.createdAt,
+        updatedAt: updatedMessage.sender.updatedAt,
       },
-      {
-        $lookup: {
-          from: "users",
-          localField: "sender",
-          foreignField: "_id",
-          as: "sender",
-        },
+      recipient: {
+        _id: updatedMessage.recipient.googleId,
+        email: updatedMessage.recipient.email,
+        displayName: updatedMessage.recipient.name,
+        photoURL: updatedMessage.recipient.photoURL,
+        createdAt: updatedMessage.recipient.createdAt,
+        updatedAt: updatedMessage.recipient.updatedAt,
       },
-      {
-        $lookup: {
-          from: "users",
-          localField: "recipient",
-          foreignField: "_id",
-          as: "recipient",
-        },
-      },
-      {
-        $unwind: "$sender",
-      },
-      {
-        $unwind: "$recipient",
-      },
-    ]);
+    };
 
     await pusherServer.trigger(
       `messages-${conversationId}`,
       "message-edited",
-      newMessage[0]
+      newMessage
     );
 
     return Response.json(

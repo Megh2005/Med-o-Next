@@ -1,12 +1,11 @@
-import { connectDB } from "@/lib/db";
-import { InvitationModel } from "@/models/invitation.model";
+
+import prisma from "@/lib/prisma";
 import { InvitationRequest } from "@/types/InvitationRequest";
 import { ApiError } from "@/utils/ApiError";
 import { ApiSuccess } from "@/utils/ApiSuccess";
 import { CustomRequest } from "@/utils/CustomRequest";
 
 export async function POST(req: CustomRequest) {
-  await connectDB();
 
   try {
     const { sender, recipient } = (await req.json()) as InvitationRequest;
@@ -17,16 +16,33 @@ export async function POST(req: CustomRequest) {
         { status: 400 }
       );
     }
+    const senderUser = await prisma.user.findUnique({ where: { googleId: sender } });
+    const recipientUser = await prisma.user.findUnique({ where: { googleId: recipient } });
 
-    const response = await InvitationModel.deleteOne({ sender, recipient });
+    if (!senderUser || !recipientUser) {
+      return Response.json(new ApiError(400, "Invalid ids"), {
+        status: 400,
+      });
+    }
+    const invitation = await prisma.invitation.findFirst({
+      where: {
+        senderId: senderUser.id,
+        recipientId: recipientUser.id
+      }
+    })
 
-    if (!response) {
-      return Response.json(new ApiError(500, "Error rejecting invitation"), {
-        status: 500,
+    if (!invitation) {
+      return Response.json(new ApiError(404, "No invitation found"), {
+        status: 404,
       });
     }
 
-    return Response.json(new ApiSuccess(200, "Invitation Rejected", response), {
+
+    await prisma.invitation.delete({ where: { id: invitation.id } })
+
+
+
+    return Response.json(new ApiSuccess(200, "Invitation Rejected", {}), {
       status: 200,
     });
   } catch (error: any) {

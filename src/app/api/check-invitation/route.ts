@@ -1,11 +1,11 @@
-import { connectDB } from "@/lib/db";
-import { InvitationModel } from "@/models/invitation.model";
+
+import prisma from "@/lib/prisma";
 import { ApiError } from "@/utils/ApiError";
 import { ApiSuccess } from "@/utils/ApiSuccess";
 import { CustomRequest } from "@/utils/CustomRequest";
 
 export async function GET(req: CustomRequest) {
-  await connectDB();
+
 
   try {
     const url = new URL(req.url);
@@ -23,13 +23,24 @@ export async function GET(req: CustomRequest) {
         status: 400,
       });
     }
+    const user = await prisma.user.findUnique({ where: { googleId: userId } });
+    const recipientUser = await prisma.user.findUnique({ where: { googleId: recipient } });
+
+    if (!user || !recipientUser) {
+      return Response.json(new ApiError(400, "Invalid ids"), {
+        status: 400,
+      });
+    }
 
     // check if the user has already sent an invitation to the recipient
 
-    const isInvited = await InvitationModel.findOne({
-      sender: userId,
-      recipient,
-    });
+    const isInvited = await prisma.invitation.findFirst({
+      where: {
+        senderId: user.id,
+        recipientId: recipientUser.id
+      }
+    })
+
 
     if (!isInvited) {
       return Response.json(

@@ -17,19 +17,19 @@ const ChatInput = ({
   sender,
   recipient,
   conversationId,
-  setEditingMessage,
 }: {
   sender: UserInfo | null;
   recipient: User;
   conversationId: string;
-  setEditingMessage: (message: CustomMessage | null) => void;
 }) => {
   const [message, setMessage] = useState("");
   const [enterPressed, setEnterPressed] = useState(false);
   const { conversationDetails } = useAppSelector(
     (state) => state.conversationDetails
   );
-  const editingMessage = useAppSelector((state) => state.conversations.editingMessage);
+  const editingMessage = useAppSelector(
+    (state) => state.conversations.editingMessage
+  );
   const [sending, setSending] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const dispatcher = useAppDispatch();
@@ -106,7 +106,7 @@ const ChatInput = ({
       }
     } catch (error) {
       console.log(error);
-      
+
       toast.error("Error sending message", {
         duration: 4000,
         position: "top-center",
@@ -141,7 +141,9 @@ const ChatInput = ({
         ref={textAreaRef}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder={editingMessage ? "Edit your message..." : "Type your message..."}
+        placeholder={
+          editingMessage ? "Edit your message..." : "Type your message..."
+        }
         className="h-10 flex-1 resize-none rounded-2xl border-none bg-muted px-4 text-sm focus:outline-none focus:ring-0"
       />
       <Button
