@@ -5,13 +5,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCADQhCzxI7DaeAbeKSrM9RetuTVoTqDa8",
-  authDomain: "testing-nextjs-f310c.firebaseapp.com",
-  databaseURL: "https://testing-nextjs-f310c-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "testing-nextjs-f310c",
-  storageBucket: "testing-nextjs-f310c.appspot.com",
-  messagingSenderId: "621190539158",
-  appId: "1:621190539158:web:000310d66e020ddb561fb7"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: "med-o-chat-613ec.firebaseapp.com",
+  projectId: "med-o-chat-613ec",
+  storageBucket: "med-o-chat-613ec.appspot.com",
+  messagingSenderId: "866214098188",
+  appId: "1:866214098188:web:e2e7bb5426b0ae91e9c529"
 };
 
 // Initialize Firebase
