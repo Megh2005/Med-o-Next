@@ -106,6 +106,7 @@ export function LandingPageComponent() {
         <nav className="hidden md:flex space-x-6">
           <a href="#features" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Features</a>
           <a href="#services" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Services</a>
+          <a href="#about-us" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>About Us</a>
           <a href="#contact" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Contact</a>
         </nav>
         <Button
@@ -130,12 +131,13 @@ export function LandingPageComponent() {
         <section id="features" className="container mx-auto px-4 py-20">
           <h2 className="text-3xl font-bold mb-12 text-center">Our Features</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {[
+          {[
               { icon: <Stethoscope className="h-10 w-10 text-green-500" />, title: "Expert Consultations", description: "Connect with top medical professionals for personalized care." },
               { icon: <Pill className="h-10 w-10 text-green-500" />, title: "Medication Management", description: "Easy tracking and reminders for your prescriptions." },
               { icon: <ShoppingCart className="h-10 w-10 text-green-500" />, title: "Medical Supplies", description: "Quick access to essential medical supplies and equipment." }
             ].map((feature, index) => (
-              <Card key={index} className={`text-center ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} transition-all duration-300 hover:scale-105 hover:shadow-lg ${darkMode ? 'hover:shadow-green-400/20' : 'hover:shadow-green-500/20'}`}>
+              <Card key={index} 
+                className={`text-center ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} transition-all duration-300 hover:scale-105 hover:shadow-lg ${darkMode ? 'hover:shadow-green-400/20' : 'hover:shadow-green-500/20'}`}>
                 <CardContent className="pt-6">
                   <div className={`mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-green-100'}`}>
                     {feature.icon}
@@ -153,21 +155,66 @@ export function LandingPageComponent() {
             <h2 className="text-3xl font-bold mb-12 text-center">Our Services</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { icon: <MessageCircle className="h-16 w-16 text-green-500 mb-4" />, title: "Med-o-Chat", description: "Multilingual real-time chat platform with doctors from pan India.", action: "Start Chatting" },
-                { icon: <ShoppingCart className="h-16 w-16 text-green-500 mb-4" />, title: "Med-o-Shop", description: "Affordable medicines and medical accessories at company-set prices.", action: "Shop Now" },
-                { icon: <Brain className="h-16 w-16 text-green-500 mb-4" />, title: "Med-o-AI", description: "AI-powered diagnostics and personalized treatment plans.", action: "Explore AI" },
-                { icon: <Eye className="h-16 w-16 text-green-500 mb-4" />, title: "Med-o-Lens", description: "Advanced imaging for precise medical analysis and early detection.", action: "Learn More" }
+                { icon: <MessageCircle className="h-16 w-16 text-green-500 mb-4" />, title: "Med-o-Chat", description: "24/7 support for all your health-related queries." },
+                { icon: <Brain className="h-16 w-16 text-green-500 mb-4" />, title: "Mental Health", description: "Professional help for mental well-being." },
+                { icon: <Eye className="h-16 w-16 text-green-500 mb-4" />, title: "Vision Care", description: "Comprehensive eye check-ups and consultations." },
+                { icon: <Heart className="h-16 w-16 text-green-500 mb-4" />, title: "Cardiac Health", description: "Expert cardiac assessments and personalized care plans." }
               ].map((service, index) => (
-                <Card key={index} className={`${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'} transition-all duration-300 hover:scale-105 hover:shadow-lg ${darkMode ? 'hover:shadow-green-400/20' : 'hover:shadow-green-500/20'}`}>
-                  <CardContent className="flex flex-col items-center p-6 h-full">
-                    {service.icon}
-                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                    <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-4 text-center`}>{service.description}</p>
-                    <Button className="mt-auto bg-green-600 hover:bg-green-700 text-white transition-colors">{service.action}</Button>
-                  </CardContent>
+                <Card key={index} className={`flex flex-col items-center text-center p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} border border-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg`}>
+                  {service.icon}
+                  <h3 className="text-xl font-bold mb-2">{service.title}</h3>
+                  <p className={darkMode ? 'text-white' : 'text-gray-600'}>{service.description}</p>
                 </Card>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section id="about-us" className="container mx-auto px-4 py-20">
+          <h2 className="text-3xl font-bold mb-12 text-center">About Us</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpEPjTbL7OilHjNyp3DKz6G0O4SV17fuhGBg&s",
+                title: "Dr. Meera Sharma",
+                description: "\"This platform has revolutionized the way I approach patient care. It's a game-changer for modern healthcare.\""
+              },
+              {
+                image: "https://www.shutterstock.com/image-photo/smiling-handsome-asian-man-standing-260nw-1530346268.jpg",
+                title: "Alex Roy",
+                description: "\"Managing my medications has never been easier! I highly recommend this service to anyone looking for reliable healthcare solutions.\""
+              },
+              {
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFSLWjFwZ6aR5shg03n9_yiENMzmHAh-nI2w&s",
+                title: "Riya Desai",
+                description: "\"I was able to quickly order essential medical supplies for my family during an emergency. Truly a lifesaver!\""
+              }
+            ].map((feature, index) => (
+              <Card
+                key={index}
+                className={`flex flex-col items-center text-center p-6 space-y-4 border-2 border-green-400 ${
+                  darkMode ? "bg-gray-800 border-gray-700" : "bg-white"
+                } transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                  darkMode ? "hover:shadow-green-400/20" : "hover:shadow-green-500/20"
+                }`}
+              >
+                <div
+                  className={`mb-4 inline-flex items-center justify-center w-24 h-24 rounded-full ${
+                    darkMode ? "bg-gray-700" : "bg-green-100"
+                  }`}
+                >
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="rounded-full w-24 h-24 object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold">{feature.title}</h3>
+                <p className={darkMode ? "text-white" : "text-gray-600"}>
+                  {feature.description}
+                </p>
+              </Card>
+            ))}
           </div>
         </section>
 
