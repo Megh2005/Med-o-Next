@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
+  email               String       @unique
+  googleId            String       @unique
+  name                String
+  photoURL            String
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  userPrefs           UserPref[]
+  sentInvitations     Invitation[] @relation("SenderInvitations")
+  receivedInvitations Invitation[] @relation("RecipientInvitations")
+  sentMessages        Message[]    @relation("SenderMessages")
+  recievedMessages    Message[]    @relation("RecipientMessages")
+}
+
+model Invitation {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  senderId    String           @db.ObjectId
+  recipientId String           @db.ObjectId
+  status      InvitationStatus @default(unsent)
+  sender      User             @relation("SenderInvitations", fields: [senderId], references: [id])
+  recipient   User             @relation("RecipientInvitations", fields: [recipientId], references: [id])
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model UserPref {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  type_in_lang    String @default("english")
+  receive_in_lang String @default("english")
+
+  userId         String       @db.ObjectId
+  user           User         @relation(fields: [userId], references: [id])
+  Conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String       @db.ObjectId
+
+  @@index([userId, conversationId])
+}
+
+model Conversation {
+  id                           String     @id @default(auto()) @map("_id") @db.ObjectId
+  members                      UserPref[]
+  lastMessageContent           String?    @default("")
+  lastMessageSender            String?    @db.ObjectId
+  lastMessageTranslatedContent String?    @default("")
+  messages                     Message[]
+  lastMessageCreatedAt         DateTime   @default(now())
+  createdAt                    DateTime   @default(now())
+  updatedAt                    DateTime   @updatedAt
+}
+
+model Message {
+  id                 String       @id @default(auto()) @map("_id") @db.ObjectId
+  content            String
+  translated_content String?      @default("")
+  conversationId     String       @db.ObjectId
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  Conversation       Conversation @relation(fields: [conversationId], references: [id])
+  senderId           String       @db.ObjectId
+  recipientId        String       @db.ObjectId
+
+  sender    User @relation("SenderMessages", fields: [senderId], references: [id])
+  recipient User @relation("RecipientMessages", fields: [recipientId], references: [id])
+}
+
+enum InvitationStatus {
+  pending
+  accepted
+  unsent
+}

@@ -5,6 +5,7 @@ import { ApiSuccess } from "@/utils/ApiSuccess";
 import { Document } from "mongoose";
 import { SignJWT } from "jose";
 import secretKey from "@/utils/encodeJWT";
+import prisma from "@/lib/prisma";
 
 type CustomRequest = {
   _id?: string;
@@ -27,9 +28,21 @@ export async function POST(req: Request) {
     }
 
     const exisitingUser = await UserModel.findOne({ email });
-
+    const exisitingUser1 = await prisma.user.findUnique({ where: { email } })
     if (exisitingUser) {
       const token = await new SignJWT({ _id: exisitingUser._id })
+        .setProtectedHeader({ alg: "HS256" })
+        .sign(secretKey);
+
+      return Response.json(
+        new ApiSuccess(200, "User already exists", { exisitingUser, token }),
+        {
+          status: 200,
+        }
+      );
+    }
+    if (exisitingUser1) {
+      const token = await new SignJWT({ _id: exisitingUser1.googleId })
         .setProtectedHeader({ alg: "HS256" })
         .sign(secretKey);
 
@@ -50,7 +63,15 @@ export async function POST(req: Request) {
       photoURL,
     });
 
-    const createdUser: Document = await user.save();
+    await user.save();
+    const createdUser = await prisma.user.create({
+      data: {
+        email,
+        name: displayName,
+        googleId: _id,
+        photoURL,
+      }
+    })
 
     if (!createdUser) {
       return Response.json(new ApiError(500, "Error creating user"), {
@@ -58,7 +79,7 @@ export async function POST(req: Request) {
       });
     }
 
-    const token = await new SignJWT({ _id: createdUser._id })
+    const token = await new SignJWT({ _id: createdUser.googleId })
       .setProtectedHeader({ alg: "HS256" })
       .sign(secretKey);
 

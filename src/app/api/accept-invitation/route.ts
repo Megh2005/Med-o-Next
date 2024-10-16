@@ -1,15 +1,12 @@
-import { connectDB } from "@/lib/db";
+
+import prisma from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusher";
-import { ConversationModel } from "@/models/conversation.model";
-import { InvitationModel } from "@/models/invitation.model";
 import { InvitationRequest } from "@/types/InvitationRequest";
 import { ApiError } from "@/utils/ApiError";
 import { ApiSuccess } from "@/utils/ApiSuccess";
 import { CustomRequest } from "@/utils/CustomRequest";
-import mongoose from "mongoose";
 
 export async function POST(req: CustomRequest) {
-  await connectDB();
 
   try {
     const { sender, recipient } = (await req.json()) as InvitationRequest;
@@ -20,104 +17,117 @@ export async function POST(req: CustomRequest) {
         { status: 400 }
       );
     }
+    const senderUser = await prisma.user.findUnique({ where: { googleId: sender } });
+    const recipientUser = await prisma.user.findUnique({ where: { googleId: recipient } });
 
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
-    const updatedInvitation = await InvitationModel.findOneAndUpdate(
-      { sender, recipient },
-      { status: "accepted" }
-    );
-
-    if (!updatedInvitation) {
-      return Response.json(new ApiError(500, "Error accepting invitation"), {
-        status: 500,
+    if (!senderUser || !recipientUser) {
+      return Response.json(new ApiError(400, "Invalid ids"), {
+        status: 400,
       });
     }
 
-    const newConversation = await ConversationModel.create({
-      members: [{ _id: sender }, { _id: recipient }],
-      lastMessageSender: "",
-      lastMessageContent: "",
-      lastMessageTranslatedContent: "",
-    });
+    const invitation = await prisma.invitation.findFirst({
+      where: { senderId: senderUser.id, recipientId: recipientUser.id }
+    })
 
-    if (!newConversation) {
-      return Response.json(new ApiError(500, "Error creating conversation"), {
-        status: 500,
+    if (!invitation) {
+      return Response.json(new ApiError(404, "invitation not found"), {
+        status: 404,
       });
     }
 
-    const conversationNotification = await ConversationModel.aggregate([
-      {
-        $match: { _id: new mongoose.Types.ObjectId(newConversation._id) },
-      },
-      {
-        $unwind: "$members",
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "members._id",
-          foreignField: "_id",
-          as: "memberDetails",
+
+    const [updatedInvitation, newConversation] = await prisma.$transaction([
+      prisma.invitation.update({
+        where: {
+          id: invitation.id,
         },
-      },
-      {
-        $unwind: "$memberDetails",
-      },
-      {
-        $group: {
-          _id: "$_id",
+        data: {
+          status: 'accepted'
+        }
+      }),
+      prisma.conversation.create({
+        data: {
           members: {
-            $push: {
-              _id: "$memberDetails._id",
-              email: "$memberDetails.email",
-              displayName: "$memberDetails.displayName",
-              photoURL: "$memberDetails.photoURL",
-              createdAt: "$memberDetails.createdAt",
-              updatedAt: "$memberDetails.updatedAt",
+            create: [
+              {
+                userId: senderUser.id,
+                type_in_lang: "english",
+                receive_in_lang: "english",
+              }, {
+                userId: recipientUser.id,
+                type_in_lang: "english",
+                receive_in_lang: "english",
+              },
+            ]
+          },
+          lastMessageContent: "",
+          lastMessageTranslatedContent: "",
+        },
+
+        select: {
+          id: true,
+          members: {
+            select: {
+              user: {
+                select: {
+                  id: true,
+                  email: true,
+                  name: true,
+                  googleId: true,
+                  photoURL: true,
+                  createdAt: true,
+                  updatedAt: true,
+                },
+              },
             },
           },
-          lastMessageSender: { $first: "$lastMessageSender" },
-          lastMessageContent: { $first: "$lastMessageContent" },
-          lastMessageTranslatedContent: {
-            $first: "$lastMessageTranslatedContent",
-          },
-          lastMessageCreatedAt: { $first: "$lastMessageCreatedAt" },
-          createdAt: { $first: "$createdAt" },
-          updatedAt: { $first: "$updatedAt" },
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          members: 1,
-          lastMessageSender: 1,
-          lastMessageContent: 1,
-          lastMessageTranslatedContent: 1,
-          lastMessageCreatedAt: 1,
-          createdAt: 1,
-          updatedAt: 1,
-        },
-      },
-    ]);
 
+          lastMessageContent: true,
+          lastMessageTranslatedContent: true,
+          lastMessageSender: true,
+          lastMessageCreatedAt: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      })
+    ])
+
+
+    // Restructure to match Mongoose output
+    const result = {
+      _id: newConversation.id,
+      members: newConversation.members.map((member) => ({
+        _id: member.user.googleId,
+        email: member.user.email,
+        displayName: member.user.name,
+        photoURL: member.user.photoURL,
+        createdAt: member.user.createdAt,
+        updatedAt: member.user.updatedAt,
+      })),
+      lastMessageSender: newConversation.lastMessageSender,
+      lastMessageContent: newConversation.lastMessageContent,
+      lastMessageTranslatedContent: newConversation.lastMessageTranslatedContent,
+      lastMessageCreatedAt: newConversation.lastMessageCreatedAt,
+      createdAt: newConversation.createdAt,
+      updatedAt: newConversation.updatedAt,
+    };
+
+    console.log(result)
     pusherServer.trigger(
-      `conversations-${newConversation.members[0]._id}`,
+      `conversations-${newConversation.members[0].user.googleId}`,
       "new-conversation",
-      conversationNotification[0]
+      result
     );
     pusherServer.trigger(
-      `conversations-${newConversation.members[1]._id}`,
+      `conversations-${newConversation.members[1].user.googleId}`,
       "new-conversation",
-      conversationNotification[0]
+      result
     );
 
-    await session.commitTransaction();
 
     return Response.json(
-      new ApiSuccess(200, "Conversation created", newConversation),
+      new ApiSuccess(200, "Conversation created", result),
       {
         status: 200,
       }

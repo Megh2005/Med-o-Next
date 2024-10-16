@@ -1,4 +1,5 @@
 import { connectDB } from "@/lib/db";
+import prisma from "@/lib/prisma";
 import { ConversationModel } from "@/models/conversation.model";
 import { ApiError } from "@/utils/ApiError";
 import { ApiSuccess } from "@/utils/ApiSuccess";
@@ -15,60 +16,51 @@ export async function GET(req: CustomRequest) {
         status: 400,
       });
     }
+    const user = await prisma.user.findUnique({ where: { googleId: userId } });
 
-    const allConversations = await ConversationModel.aggregate([
-      {
-        $match: { "members._id": userId },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "members._id",
-          foreignField: "_id",
-          as: "memberDetails",
-        },
-      },
-      {
-        $unwind: "$memberDetails",
-      },
-      {
-        $group: {
-          _id: "$_id",
-          members: {
-            $push: {
-              _id: "$memberDetails._id",
-              email: "$memberDetails.email",
-              displayName: "$memberDetails.displayName",
-              photoURL: "$memberDetails.photoURL",
-              createdAt: "$memberDetails.createdAt",
-              updatedAt: "$memberDetails.updatedAt",
-            },
-          },
-          lastMessageSender: { $first: "$lastMessageSender" },
-          lastMessageContent: { $first: "$lastMessageContent" },
-          lastMessageTranslatedContent: {
-            $first: "$lastMessageTranslatedContent",
-          },
-          lastMessageCreatedAt: { $first: "$lastMessageCreatedAt" },
-          createdAt: { $first: "$createdAt" },
-          updatedAt: { $first: "$updatedAt" },
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          members: 1,
-          lastMessageSender: 1,
-          lastMessageContent: 1,
-          lastMessageTranslatedContent: 1,
-          lastMessageCreatedAt: 1,
-          createdAt: 1,
-          updatedAt: 1,
-        },
-      },
-    ]);
 
-    return Response.json(new ApiSuccess(200, "Invitations", allConversations), {
+    if (!user) {
+      return Response.json(new ApiError(500, "Error user not found"), {
+        status: 500,
+      });
+    }
+
+
+    const allConversations = await prisma.conversation.findMany({
+      where: {
+        members: {
+          some: { userId: user.id }, // Adjust according to your schema
+        },
+      },
+      include: {
+        members: {
+          include: {
+            user: true, // Assuming user contains user details like email, displayName, etc.
+          },
+        },
+      },
+    });
+
+    // Transforming the result to match the expected output format
+    const transformedConversations = allConversations.map(conversation => ({
+      _id: conversation.id, // Adjust according to your schema
+      members: conversation.members.map(member => ({
+        _id: member.user.googleId, // Adjust according to your schema
+        email: member.user.email,
+        displayName: member.user.name,
+        photoURL: member.user.photoURL,
+        createdAt: member.user.createdAt,
+        updatedAt: member.user.updatedAt,
+      })),
+      lastMessageSender: conversation.lastMessageSender,
+      lastMessageContent: conversation.lastMessageContent,
+      lastMessageTranslatedContent: conversation.lastMessageTranslatedContent,
+      lastMessageCreatedAt: conversation.lastMessageCreatedAt,
+      createdAt: conversation.createdAt,
+      updatedAt: conversation.updatedAt,
+    }));
+
+    return Response.json(new ApiSuccess(200, "Invitations", transformedConversations), {
       status: 200,
     });
   } catch (error: any) {

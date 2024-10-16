@@ -1,16 +1,13 @@
-import { connectDB } from "@/lib/db";
+
 import { pusherServer } from "@/lib/pusher";
-import { MessageModel } from "@/models/message.model";
 import { MessageRequest } from "@/types/MessageRequest";
 import { ApiError } from "@/utils/ApiError";
 import { ApiSuccess } from "@/utils/ApiSuccess";
 import { CustomRequest } from "@/utils/CustomRequest";
-import mongoose from "mongoose";
-import { ConversationModel } from "@/models/conversation.model";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import prisma from "@/lib/prisma";
 
 export async function POST(req: CustomRequest) {
-  await connectDB();
 
   try {
     const {
@@ -35,6 +32,15 @@ export async function POST(req: CustomRequest) {
       });
     }
 
+    const senderUser = await prisma.user.findUnique({ where: { googleId: sender } });
+    const recipientUser = await prisma.user.findUnique({ where: { googleId: recipient } });
+
+    if (!senderUser || !recipientUser) {
+      return Response.json(new ApiError(400, "Invalid ids"), {
+        status: 400,
+      });
+    }
+
     let translated_content = content;
 
     if (source_lang !== target_lang) {
@@ -51,70 +57,69 @@ export async function POST(req: CustomRequest) {
       translated_content = text;
     }
 
-    const message = new MessageModel({
-      sender,
-      recipient,
-      content,
-      conversationId,
-      translated_content,
-    });
 
-    const createdMessage = await message.save();
+
+    const createdMessage = await prisma.message.create({
+      data: {
+        senderId: senderUser.id,
+        recipientId: recipientUser.id,
+        content,
+        conversationId,
+        translated_content,
+      },
+      include: {
+        recipient: true,
+        sender: true,
+      }
+    })
 
     if (!createdMessage) {
       return Response.json(new ApiError(500, "Failed to send message"));
     }
 
-    const newMessage = await MessageModel.aggregate([
-      {
-        $match: {
-          _id: new mongoose.Types.ObjectId(createdMessage._id),
-        },
+    const newMessage = {
+      _id: createdMessage.id,
+      content: createdMessage.content,
+      translated_content: createdMessage.translated_content,
+      createdAt: createdMessage.createdAt,
+      updatedAt: createdMessage.updatedAt,
+      sender: {
+        _id: createdMessage.sender.googleId,
+        email: createdMessage.sender.email,
+        displayName: createdMessage.sender.name,
+        photoURL: createdMessage.sender.photoURL,
+        createdAt: createdMessage.sender.createdAt,
+        updatedAt: createdMessage.sender.updatedAt,
       },
-      {
-        $lookup: {
-          from: "users",
-          localField: "sender",
-          foreignField: "_id",
-          as: "sender",
-        },
+      recipient: {
+        _id: createdMessage.recipient.googleId,
+        email: createdMessage.recipient.email,
+        displayName: createdMessage.recipient.name,
+        photoURL: createdMessage.recipient.photoURL,
+        createdAt: createdMessage.recipient.createdAt,
+        updatedAt: createdMessage.recipient.updatedAt,
       },
-      {
-        $lookup: {
-          from: "users",
-          localField: "recipient",
-          foreignField: "_id",
-          as: "recipient",
-        },
-      },
-      {
-        $unwind: "$sender",
-      },
-      {
-        $unwind: "$recipient",
-      },
-    ]);
+    };
 
-    await ConversationModel.findOneAndUpdate(
-      {
-        _id: conversationId,
-      },
-      {
-        lastMessageSender: sender,
+    await prisma.conversation.update({
+      where: { id: conversationId },
+      data: {
+        lastMessageSender: senderUser.id,
         lastMessageContent: content,
         lastMessageTranslatedContent: translated_content,
         lastMessageCreatedAt: new Date(),
       }
-    );
+    })
+
 
     await pusherServer.trigger(
       `messages-${conversationId}`,
       "new-message",
-      newMessage[0]
+      newMessage
     );
 
     return Response.json(
-      new ApiSuccess(201, "Message sent successfully", createdMessage),
+      new ApiSuccess(201, "Message sent successfully", newMessage),
       { status: 201 }
     );
   } catch (error: any) {
