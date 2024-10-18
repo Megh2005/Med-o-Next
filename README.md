@@ -2,6 +2,9 @@
 > [!IMPORTANT]
 > **Give a ⭐ to the repository before starting your contribution or raising an issue. Show some love or bhaichara 🫂**
 
+> [!NOTE]  
+> **WE DON'T WANT ANY MORE CONTRIBUTIONS IN THE LANDING SCREEN [MAIN BRANCH]. PLEASE LOOK INTO THE OTHER BRANCHES.**
+
 ## ⚡️ Open Source Programs ❄️
 
 <table>
@@ -177,115 +180,42 @@ We welcome contributions from the community! To contribute, please follow these 
 
    Go to the original repository and create a pull request from your fork.
 
-## Issue Template
-   ```bash
-   Issue Title :
-   Isuue Description :
-   Issue Branch :
-   Your Approach :
-   Your Name : 
-   GitHub User Name : 
-   ```
-
-## Contributors & Collaborators
-   <table>
+## Project Builders
+ <table>
 <tr>
   <td align="center">
    <a href="https://github.com/Sayambar2004/">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Sayambar2004"/><br />
-    <sub><b>Sayambar<br/>Collaborator</b></sub>
+    <sub><b>Sayambar</b></sub>
    </a>
  </td>
   <td align="center">
    <a href="https://github.com/Megh2005/">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Megh2005"/><br />
-    <sub><b>Megh<br/>Collaborator</b></sub>
+    <sub><b>Megh</b></sub>
    </a>
  </td>
   <td align="center">
    <a href="https://github.com/iSubhamMani/">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/iSubhamMani"/><br />
-    <sub><b>Subham<br/>Collaborator</b></sub>
+    <sub><b>Subham</b></sub>
    </a>
  </td>
-</tr>
-<tr>
   <td align="center">
    <a href="https://github.com/rbose3">
     <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/rbose3"/><br />
-    <sub><b>Ronit<br/>Collaborator</b></sub>
+    <sub><b>Ronit</b></sub>
    </a>
  </td>
-  <td align="center">
-   <a href="https://github.com/J-B-Mugundh/">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/J-B-Mugundh"/><br />
-    <sub><b>Mugundh J B<br/>Contributor L-2</b></sub>
-   </a>
- </td>
-  <td align="center">
-   <a href="https://github.com/ash-k121">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/ash-k121"/><br />
-    <sub><b>Ashmeet Kaur<br/>Contributor L-1</b></sub>
-   </a>
- </td>
-</tr>
-<tr>
-  <td align="center">
-   <a href="https://github.com/Rizvi-Faiz">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Rizvi-Faiz"/><br />
-    <sub><b>Rizvi Faiz<br/>Contributor L-3</b></sub>
-   </a>
- </td>
-<td align="center">
-   <a href="https://github.com/Vishv0407">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Vishv0407"/><br />
-    <sub><b>Vishv Boda<br/>Contributor L-1</b></sub>
-   </a>
- </td>
-<td align="center">
-   <a href="https://github.com/Kaif9999">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Kaif9999"/><br />
-    <sub><b>Mohd Kaif<br/>Contributor L-2</b></sub>
-   </a>
- </td>
-<tr>
-  <td align="center">
-   <a href="https://github.com/say-het">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/say-het"/><br />
-    <sub><b>Het Modi<br/>Contributor L-2</b></sub>
-   </a>
- </td>
-<td align="center">
-   <a href="https://github.com/AswaniBolisetti">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/AswaniBolisetti"/><br />
-    <sub><b>Aswani Bolisetti<br/>Contributor L-1</b></sub>
-   </a>
- </td>
-<td align="center">
-   <a href="https://github.com/Priyanshu282003">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/Priyanshu282003"/><br />
-    <sub><b>Priyanshu Dubey<br/>Contributor L-2</b></sub>
-   </a>
- </td>
-</tr>
-<tr>
-  <td align="center">
-   <a href="https://github.com/aasiflm10">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/aasiflm10"/><br />
-    <sub><b>aasiflm10<br/>Contributor L-3</b></sub>
-   </a>
- </td>
- <td align="center">
-   <a href="https://github.com/amitroy5817">
-    <img style="height: 80px; width:80px;" src="https://avatars.githubusercontent.com/amitroy5817"/><br />
-    <sub><b>Amit Roy<br/>Contributor L-2</b></sub>
-   </a>
- </td>
-</tr>
 </tr>
 </table>
 
-> [!CAUTION]  
-> **WE DON'T WANT ANY MORE CONTRIBUTIONS IN THE LANDING SCREEN [MAIN BRANCH]. PLEASE LOOK INTO THE OTHER BRANCHES.**
+## Contributors
+  <a href="https://github.com/Megh2005/Med-o-Next/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Megh2005/Med-o-Next" />
+</a>
+
+
+
 
 
