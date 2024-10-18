@@ -37,6 +37,7 @@ export default function ChatDetails() {
         dispatcher(addConversationDetails(response.data.data));
       }
     } catch (error) {
+      console.log(error);
       toast.error("Error getting chat details", {
         duration: 4000,
         position: "top-center",

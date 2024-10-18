@@ -1,9 +1,8 @@
 import { connectDB } from "@/lib/db";
-import { ConversationModel } from "@/models/conversation.model";
+import prisma from "@/lib/prisma";
 import { ApiError } from "@/utils/ApiError";
 import { ApiSuccess } from "@/utils/ApiSuccess";
 import { CustomRequest } from "@/utils/CustomRequest";
-import mongoose from "mongoose";
 
 export async function GET(req: CustomRequest) {
   await connectDB();
@@ -25,54 +24,51 @@ export async function GET(req: CustomRequest) {
       });
     }
 
-    const chatDetails = await ConversationModel.aggregate([
-      {
-        $match: { _id: new mongoose.Types.ObjectId(chatId) },
-      },
-      {
-        $unwind: "$members",
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "members._id",
-          foreignField: "_id",
-          as: "memberDetails",
-        },
-      },
-      {
-        $unwind: "$memberDetails",
-      },
-      {
-        $group: {
-          _id: "$_id",
-          members: {
-            $push: {
-              _id: "$members._id",
-              type_in_lang: "$members.type_in_lang",
-              receive_in_lang: "$members.receive_in_lang",
-              email: "$memberDetails.email",
-              displayName: "$memberDetails.displayName",
-              photoURL: "$memberDetails.photoURL",
-              createdAt: "$memberDetails.createdAt",
-              updatedAt: "$memberDetails.updatedAt",
-            },
+    const user = await prisma.user.findUnique({ where: { googleId: userId } });
+
+
+    if (!user) {
+      return Response.json(new ApiError(500, "Error user not found"), {
+        status: 500,
+      });
+    }
+
+    const chatDetails = await prisma.conversation.findUnique({
+      where: { id: chatId }, // Assuming 'id' is the unique identifier for the conversation
+      include: {
+        members: {
+          include: {
+            user: true, // Assuming the member has a relation to the User model
           },
-          lastMessageAt: { $first: "$lastMessageAt" },
-          createdAt: { $first: "$createdAt" },
-          updatedAt: { $first: "$updatedAt" },
         },
       },
-    ]);
+    });
 
     if (!chatDetails) {
       return Response.json(new ApiError(404, "Chat not found"), {
         status: 404,
       });
     }
+    const transformedChatDetails = {
+      _id: chatDetails.id, // Adjust according to your schema
+      members: chatDetails.members.map(member => ({
+        _id: member.user.googleId, // Adjust according to your schema
+        type_in_lang: member.type_in_lang, // Assuming you have this in your member model
+        receive_in_lang: member.receive_in_lang, // Assuming you have this in your member model
+        email: member.user.email,
+        displayName: member.user.name,
+        photoURL: member.user.photoURL,
+        createdAt: member.user.createdAt,
+        updatedAt: member.user.updatedAt,
+      })),
+      translated_content: chatDetails.lastMessageTranslatedContent,
+      lastMessageAt: chatDetails.lastMessageCreatedAt, // Adjust according to your schema
+      createdAt: chatDetails.createdAt,
+      updatedAt: chatDetails.updatedAt,
+    };
 
     return Response.json(
-      new ApiSuccess(200, "Chat Details fetched successfully", chatDetails[0]),
+      new ApiSuccess(200, "Chat Details fetched successfully", transformedChatDetails),
       {
         status: 200,
       }

@@ -45,6 +45,7 @@ const ChatLangPrefs = ({
   const { type_in_lang, receive_in_lang } = useMemo(() => {
     if (!conversationDetails[conversationId])
       return { type_in_lang: "", receive_in_lang: "" };
+    console.log(conversationDetails[conversationId].members);
     return conversationDetails[conversationId].members.find(
       (member) => member._id === currentUser?.uid
     ) as UserDetailsAndPrefs;

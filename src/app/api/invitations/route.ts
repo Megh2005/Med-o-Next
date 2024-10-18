@@ -1,15 +1,13 @@
-import { connectDB } from "@/lib/db";
+
+import prisma from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusher";
-import { InvitationModel } from "@/models/invitation.model";
 import { InvitationRequest } from "@/types/InvitationRequest";
 import { ApiError } from "@/utils/ApiError";
 import { ApiSuccess } from "@/utils/ApiSuccess";
 import { CustomRequest } from "@/utils/CustomRequest";
-import mongoose from "mongoose";
 
 // create a new invitation
 export async function POST(req: CustomRequest) {
-  await connectDB();
 
   try {
     const { sender, recipient } = (await req.json()) as InvitationRequest;
@@ -21,13 +19,29 @@ export async function POST(req: CustomRequest) {
       );
     }
 
-    const newInvitation = new InvitationModel({
-      sender,
-      recipient,
-      status: "pending",
-    });
 
-    const createdInvitation = await newInvitation.save();
+    const senderUser = await prisma.user.findUnique({ where: { googleId: sender } });
+    const recipientUser = await prisma.user.findUnique({ where: { googleId: recipient } });
+
+    if (!senderUser || !recipientUser) {
+      return Response.json(new ApiError(400, "Invalid ids"), {
+        status: 400,
+      });
+    }
+
+
+    const createdInvitation = await prisma.invitation.create({
+      data: {
+        recipientId: recipientUser.id,
+        senderId: senderUser.id,
+        status: 'pending',
+
+      },
+      include: {
+        sender: true,
+        recipient: true
+      }
+    })
 
     if (!createdInvitation) {
       return Response.json(new ApiError(500, "Error creating invitation"), {
@@ -35,40 +49,36 @@ export async function POST(req: CustomRequest) {
       });
     }
 
-    const invitationNotification = await InvitationModel.aggregate([
-      {
-        $match: {
-          _id: new mongoose.Types.ObjectId(createdInvitation._id as string),
-        },
+
+    const transformedInvitation = {
+      _id: createdInvitation.id,
+      sender: {
+        _id: createdInvitation.sender.googleId, // Use googleId as the _id for sender
+        email: createdInvitation.sender.email,
+        displayName: createdInvitation.sender.name, // Map `name` to `displayName`
+        photoURL: createdInvitation.sender.photoURL,
+        createdAt: createdInvitation.sender.createdAt,
+        updatedAt: createdInvitation.sender.updatedAt,
       },
-      {
-        $lookup: {
-          from: "users",
-          localField: "sender",
-          foreignField: "_id",
-          as: "sender",
-        },
+      recipient: {
+        _id: createdInvitation.recipient.googleId, // Use googleId as the _id for recipient
+        email: createdInvitation.recipient.email,
+        displayName: createdInvitation.recipient.name, // Map `name` to `displayName`
+        photoURL: createdInvitation.recipient.photoURL,
+        createdAt: createdInvitation.recipient.createdAt,
+        updatedAt: createdInvitation.recipient.updatedAt,
       },
-      {
-        $lookup: {
-          from: "users",
-          localField: "recipient",
-          foreignField: "_id",
-          as: "recipient",
-        },
-      },
-      {
-        $unwind: "$recipient",
-      },
-      {
-        $unwind: "$sender",
-      },
-    ]);
+      status: createdInvitation.status,
+      createdAt: createdInvitation.createdAt,
+      updatedAt: createdInvitation.updatedAt,
+    };
+
+
 
     pusherServer.trigger(
-      `invitations-${createdInvitation.recipient}`,
+      `invitations-${transformedInvitation.recipient._id}`,
       "new-invitation",
-      invitationNotification[0]
+      transformedInvitation
     );
 
     return Response.json(
@@ -81,40 +91,51 @@ export async function POST(req: CustomRequest) {
 }
 
 export async function GET(req: CustomRequest) {
-  await connectDB();
-
   try {
     const userId = req.headers.get("userId");
-
     if (!userId) {
       return Response.json(new ApiError(400, "User ID is required"), {
         status: 400,
       });
     }
+    const user = await prisma.user.findUnique({ where: { googleId: userId } });
 
-    const invitations = await InvitationModel.aggregate([
-      {
-        $match: { recipient: userId, status: "pending" },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "sender",
-          foreignField: "_id",
-          as: "sender",
-        },
-      },
-      {
-        $unwind: "$sender",
-      },
-      {
-        $sort: { createdAt: -1 },
-      },
-    ]);
+    if (!user) {
+      return Response.json(new ApiError(404, "User not found"), {
+        status: 404,
+      });
+    }
 
-    console.log(invitations);
+    const invitations = await prisma.invitation.findMany({
+      where: {
+        recipientId: user.id,
+        status: 'pending',
+      },
+      include: {
+        sender: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      }
+    })
 
-    return Response.json(new ApiSuccess(200, "Invitations", invitations), {
+    const transformedInvitations = invitations.map((invitation) => ({
+      _id: invitation.id,
+      createdAt: invitation.createdAt,
+      recipient: user.googleId,
+      status: invitation.status,
+      updatedAt: invitation.updatedAt,
+      sender: {
+        _id: invitation.sender.googleId,
+        email: invitation.sender.email,
+        displayName: invitation.sender.name,
+        photoURL: invitation.sender.photoURL,
+      }
+
+    }))
+
+
+    return Response.json(new ApiSuccess(200, "Invitations", transformedInvitations), {
       status: 200,
     });
   } catch (error: any) {

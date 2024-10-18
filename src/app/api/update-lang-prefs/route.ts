@@ -1,4 +1,5 @@
 import { connectDB } from "@/lib/db";
+import prisma from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusher";
 import { ConversationModel } from "@/models/conversation.model";
 import { ApiError } from "@/utils/ApiError";
@@ -24,27 +25,47 @@ export async function POST(req: CustomRequest) {
         "Chat ID, receive_in_lang and type_in_lang are required"
       );
     }
+    const userId = req.headers.get("userId");
 
-    const conversation = await ConversationModel.findById(chatId);
+    if (!userId) {
+      return Response.json(new ApiError(400, "User ID is required"), {
+        status: 400,
+      });
+    }
+    const user = await prisma.user.findUnique({ where: { googleId: userId } });
 
-    if (!conversation) {
-      throw new ApiError(400, "Conversation not found");
+
+    if (!user) {
+      return Response.json(new ApiError(500, "Error user not found"), {
+        status: 500,
+      });
     }
 
-    const member = conversation.members.find(
-      (member) => member._id.toString() === req.headers.get("userId")
-    );
+    const userPref = await prisma.userPref.findFirst({
+      where: {
+        conversationId: chatId,
+        userId: user.id
 
-    if (!member) {
-      throw new ApiError(400, "User not found in conversation");
+      }
+    })
+    if (!userPref) {
+      throw new ApiError(400, "userPref not found");
     }
 
-    member.receive_in_lang = receive_in_lang;
-    member.type_in_lang = type_in_lang;
 
-    const updatedConversation = await conversation.save();
 
-    if (!updatedConversation) {
+    const updateduserPref = await prisma.userPref.update({
+      where: {
+        id: userPref.id,
+      },
+      data: {
+        receive_in_lang,
+        type_in_lang,
+      }
+    })
+
+
+    if (!updateduserPref) {
       throw new ApiError(400, "Lang prefs update failed");
     }
 
@@ -57,7 +78,7 @@ export async function POST(req: CustomRequest) {
       new ApiSuccess(
         200,
         "Lang prefs updated successfully",
-        updatedConversation
+        updateduserPref
       ),
       { status: 200 }
     );
