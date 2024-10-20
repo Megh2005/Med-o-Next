@@ -89,34 +89,51 @@ export function LandingPageComponent() {
 
   return (
     <div className={`flex flex-col min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} ${darkMode ? 'text-gray-100' : 'text-gray-900'} relative overflow-hidden transition-colors duration-300`}>
-      <div id="starry-background" className={`absolute inset-0 overflow-hidden pointer-events-none ${darkMode ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`} style={{ height: '100vh' }}></div>
+  <div id="starry-background" className={`absolute inset-0 overflow-hidden pointer-events-none ${darkMode ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`} style={{ height: '100vh' }}></div>
 
-      <header className="container mx-auto px-4 py-6 flex justify-between items-center relative z-10">
-        <div className="flex items-center space-x-2">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 bg-blue-600 rounded-full"></div>
-            <div className="absolute inset-1 bg-white rounded-full flex items-center justify-center">
-              <Heart className="h-6 w-6 text-blue-600" />
-            </div>
-            <div className="absolute top-0 right-0 w-4 h-4 bg-green-400 rounded-full"></div>
-            <div className="absolute bottom-0 left-0 w-4 h-4 bg-green-400 rounded-full"></div>
-          </div>
-          <span className="text-2xl font-bold">MED-O-NEXT</span>
+  {/* Sticky Navbar */}
+  <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md border-b border-gray-300">
+  <div className="container mx-auto px-4 py-6 flex justify-between items-center relative z-10">
+    <div className="flex items-center space-x-2">
+      {/* Logo Section */}
+      <div className="relative w-12 h-12">
+        <div className="absolute inset-0 bg-blue-600 rounded-full"></div>
+        <div className="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+          <Heart className="h-6 w-6 text-blue-600" />
         </div>
-        <nav className="hidden md:flex space-x-6">
-          <a href="#features" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Features</a>
-          <a href="#services" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Services</a>
-          <a href="#about-us" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>About Us</a>
-          <a href="#contact" className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>Contact</a>
-        </nav>
-        <Button
-          variant="outline"
-          className={`${darkMode ? 'text-gray-300 border-gray-300' : 'text-gray-700 border-gray-700'} hover:bg-green-500 hover:text-white transition-colors`}
-          onClick={toggleDarkMode}
-        >
-          {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-        </Button>
-      </header>
+        <div className="absolute top-0 right-0 w-4 h-4 bg-green-400 rounded-full"></div>
+        <div className="absolute bottom-0 left-0 w-4 h-4 bg-green-400 rounded-full"></div>
+      </div>
+      <span className="text-2xl font-bold">MED-O-NEXT</span>
+    </div>
+
+    {/* Navigation Links */}
+    <nav className="hidden md:flex space-x-6 items-center">
+      <span className={`px-4 py-2 border border-purple-500 rounded-full ${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>
+        <a href="#features"><b>Features</b></a>
+      </span>
+      <span className={`px-4 py-2 border border-purple-500 rounded-full ${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>
+        <a href="#services"><b>Services</b></a>
+      </span>
+      <span className={`px-4 py-2 border border-purple-500 rounded-full ${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>
+        <a href="#about-us"><b>About Us</b></a>
+      </span>
+      <span className={`px-4 py-2 border border-purple-500 rounded-full ${darkMode ? 'text-gray-300' : 'text-gray-700'} hover:text-green-500 transition-colors`}>
+        <a href="#contact"><b>Contact</b></a>
+      </span>
+    </nav>
+
+    {/* Dark Mode Toggle Button */}
+    <Button
+      variant="outline"
+      className={`${darkMode ? 'text-gray-300 border-gray-300' : 'text-gray-700 border-gray-700'} hover:bg-green-500 hover:text-white transition-colors`}
+      onClick={toggleDarkMode}
+    >
+      {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </Button>
+  </div>
+</header>
+
 
       <main>
         <section className="container mx-auto px-4 py-20 text-center flex-grow relative z-10 " style={{ minHeight: '100vh' }}>
@@ -270,16 +287,17 @@ export function LandingPageComponent() {
         </section>
       </main>
 
-      <footer className={`${darkMode ? 'bg-gray-800' : 'bg-gray-200'} py-8 relative z-10 transition-colors duration-300`}>
-        <div className="container mx-auto px-4 text-center">
-          <p>&copy; {new Date().getFullYear()} MED-O-NEXT. All rights reserved.</p>
-          <div className="mt-4 space-x-4">
-            <a href="#" className={`${darkMode ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700'} transition-colors`}>Privacy Policy</a>
-            <a href="#" className={`${darkMode ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700'} transition-colors`}>Terms of Service</a>
-            <a href="#" className={`${darkMode ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700'} transition-colors`}>Contact Us</a>
-          </div>
-        </div>
-      </footer>
+      <footer className={`${darkMode ? 'bg-gray-800' : 'bg-gray-200'} py-8 relative z-10 transition-colors duration-300 shadow-md`} style={{ position: 'sticky', bottom: '0', left: '0', right: '0', boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}>
+  <div className="container mx-auto px-4 text-center">
+    <p>&copy; {new Date().getFullYear()} MED-O-NEXT. All rights reserved.</p>
+    <div className="mt-4 space-x-4">
+      <a href="#" className={`${darkMode ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700'} transition-colors`}>Privacy Policy</a>
+      <a href="#" className={`${darkMode ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700'} transition-colors`}>Terms of Service</a>
+      <a href="#" className={`${darkMode ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700'} transition-colors`}>Contact Us</a>
+    </div>
+  </div>
+</footer>
+
 
       {/* Scroll to Top Button */}
       {isVisible && (
