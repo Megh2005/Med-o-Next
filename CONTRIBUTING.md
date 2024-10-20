@@ -143,7 +143,7 @@ Your pull request will now be available for review by the project maintainers. T
 
 # For Help And Support 💬
 
-- Admin Github Profile:- Megh Deb
+- Admin Github Profile:- [Megh Deb](https://github.com/Megh2005)
 - Contact :- [Email](iammeghdeb@gmail.com)
 
 <br>
