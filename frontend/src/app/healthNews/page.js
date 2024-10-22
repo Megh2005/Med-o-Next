@@ -2,9 +2,7 @@
 import { useEffect, useState } from "react";
 import NewsCard from "../../components/NewsCard";
 import Pagination from "../../components/Pagination";
-import Filter from "../../components/Filter";
 import Spinner from "../../components/Spinner";
-// import { dbArticles } from "";
 import { toast } from "react-toastify";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
