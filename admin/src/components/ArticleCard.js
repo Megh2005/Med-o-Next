@@ -10,8 +10,8 @@ export default function ArticleCard({ article }) {
         <div className="col-span-1">
           <img
             className="w-full h-auto rounded-l-lg object-cover"
-            src={article.articleImg ? article.articleImg : "/assets/a8.png"}
-            alt="blog img"
+            src={article.articleImg ? article.articleImg : "/a1.png"}
+            alt="Article img"
           />
         </div>
         <div className="col-span-3">

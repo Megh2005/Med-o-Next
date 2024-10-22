@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,6 +9,7 @@ import { faClose, faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg
 import Spinner from "./Spinner";
 import SurveyForm from "./SurveyForm";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 export default function AuthForm({setIsOpen}) {
   const [isSignup, setIsSignup] = useState(false);

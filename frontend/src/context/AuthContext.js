@@ -10,19 +10,18 @@ import { auth } from "../utils/firebaseConfig";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-
 export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-
+  const [adminAccess, setAdminAccess] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const[token, setToken]=useState(" ");
-  const[userEmail, setUserEmail]=useState(" ");
-  const router=useRouter();
+  const [token, setToken] = useState(" ");
+  const [userEmail, setUserEmail] = useState(" ");
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
@@ -58,14 +57,14 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const signup = async (email, password ) => {
+  const signup = async (email, password) => {
     setLoading(true);
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setLoading(false);
 
         const user = userCredential.user;
-        const { email,accessToken } = user;
+        const { email, accessToken } = user;
         localStorage.setItem("usertoken", accessToken);
         setToken(accessToken);
 
@@ -84,9 +83,23 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-
   return (
-    <AuthContext.Provider value={{ user, setIsOpen, isOpen, userEmail, login, signup,setLoading, loading, setToken, token }}>
+    <AuthContext.Provider
+      value={{
+        adminAccess,
+        setAdminAccess,
+        user,
+        setIsOpen,
+        isOpen,
+        userEmail,
+        login,
+        signup,
+        setLoading,
+        loading,
+        setToken,
+        token,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

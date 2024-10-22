@@ -7,40 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGears,
   faSignOutAlt,
+  faUserCheck,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { toast } from "react-toastify";
-import { signOut } from "firebase/auth";
-import { auth } from "../utils/firebaseConfig";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
 const AuthForm = dynamic(() => import("./AuthForm"), { ssr: false });
 
 export default function Navbar() {
   
-  const router=useRouter();
-  const { user, userEmail, token, setToken, isOpen, setIsOpen } = useAuth();
+  const { user, userEmail, adminAccess, token, isOpen, setIsOpen } = useAuth();
 
-  const logout = async () => {
-    
-    try{
-      await signOut(auth);
-      localStorage.removeItem("usertoken");
-      setToken(null);
-        toast.info("Logged out successfully", {
-          theme: "dark",
-        });
-       router.push("/");
-       
-
-    }catch(error){
-      toast.error(`${error.message}`, {
-        autoClose: 5000,
-        theme: "dark",
-      });
-    }
-  };
 
   return (
     <nav className="bg-blue-600 text-white p-4 ">
@@ -62,13 +39,6 @@ export default function Navbar() {
           >
             Hews
           </Link>
-          {/* <Link
-            href="/saveFeeds"
-            className="bg-emerald-500 rounded-full text-white font-semibold py-2 px-4  shadow-lg hover:bg-yellow-400 transition duration-300 ease-in-out items-center  justify-between"
-          >
-            Feeds
-          </Link> */}
-
           {token && user ? (
             <>
             <li
@@ -87,18 +57,17 @@ export default function Navbar() {
               >
                 My Feeds
               </Link>
-              
-              <li
-                className=" cursor-pointer bg-emerald-500 rounded-full text-white font-semibold py-2 px-4  shadow-lg hover:bg-yellow-400 transition duration-300 ease-in-out items-center  justify-between"
-                onClick={logout}
+              <Link
+                href="/dashboard"
+                className="bg-emerald-500 rounded-full text-white font-semibold py-2 px-4  shadow-lg hover:bg-yellow-400 transition duration-300 ease-in-out items-center  justify-between"
               >
                 {userEmail && (
                   <p>
-                    {userEmail}{" "}
-                    <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
+                    {userEmail} || <FontAwesomeIcon icon={faUserCheck}/>
                   </p>
                 )}
-              </li>
+              </Link>
+              
             </>
           ) : (
             <li
