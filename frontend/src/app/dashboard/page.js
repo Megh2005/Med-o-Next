@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function Dashboard() {
   const router = useRouter();
-  const { user, setLoading, loading, setToken, userEmail } = useAuth();
+  const {  setToken } = useAuth();
 
 
   const logout = async () => {
@@ -51,7 +51,7 @@ export default function Dashboard() {
           <strong className="text-emerald-600 font-bold">
             Are you passionate about health?
           </strong>{" "}
-          Whether you're a health enthusiast, blogger, content developer,
+          Whether you are a health enthusiast, blogger, content developer,
           doctor, or simply someone who loves sharing health-related insights,
           we invite you to contribute. Submit articles about fitness tips,
           mental strategies, and more. Once approved by our moderators, your

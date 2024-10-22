@@ -25,7 +25,9 @@ export const AuthProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState("");
   const router = useRouter();
 
-  const adminModerators = ['euf86kgKmTOAw7Gyw1OyNFdHRPy2', 'cNczY3fKmXbjRXOzN3BmazuZort1'];
+  // const admin1=process.env.NEXT_ADMIN2_UID;
+  // const admin2=process.env.NEXT_ADMIN1_UID;
+  const adminModerators = ['euf86kgKmTOAw7Gyw1OyNFdHRPy2','cNczY3fKmXbjRXOzN3BmazuZort1' ];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
@@ -38,10 +40,13 @@ export const AuthProvider = ({ children }) => {
         setAdminAccess(false);
       }
       setLoading(false);
+      
     });
 
+    
     return () => unsubscribe();
   }, []);
+
 
   const login = async (email, password) => {
     setLoading(true);

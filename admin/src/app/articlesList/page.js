@@ -62,7 +62,7 @@ export default function ArticlesList() {
         </div>
 
       <div className="divide-y divide-gray-200">
-          {articleData ? (
+          {articleData.length > 0 ? (
             articleData.map((article, index) => {
              return <div
                 key={index}
@@ -96,7 +96,7 @@ export default function ArticlesList() {
               </div>;
             })
           ) : (
-            <p className="text-muted text-center">No Pending Articles found.</p>
+            <p className="text-muted text-center my-4 py-4 px-2">No Pending Articles found!</p>
           )}
         </div>
       </div>

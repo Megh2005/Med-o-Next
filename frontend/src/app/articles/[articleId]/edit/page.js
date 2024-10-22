@@ -12,7 +12,7 @@ import { db } from "../../../../utils/firebaseConfig";
 
 export default function EditArticle() {
   const router = useRouter();
-  const { user, setIsOpen, loading, setLoading } = useAuth();
+  const { user, loading, setLoading } = useAuth();
   const { articleId } = useParams();
 
   const [articleData, setArticleData] = useState({
@@ -25,7 +25,6 @@ export default function EditArticle() {
   const [inputTag, setInputTag] = useState('');
   const [articleImg, setArticleImg] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const[status, setStatus]=useState("");
 
  
   const fetchArticleData = async () => {
@@ -123,7 +122,7 @@ export default function EditArticle() {
       fetchArticleData();
     } else {
       toast.error("You must be registered to edit an article!", { theme: "dark" });
-      setIsOpen(true);
+      router.push("/");
     }
   }, [user, articleId]);
 

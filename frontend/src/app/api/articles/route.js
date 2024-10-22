@@ -1,6 +1,6 @@
+import axios from 'axios';
 import { db } from '../../../utils/firebaseConfig';
 import {collection, getDocs, setDoc } from 'firebase/firestore';
-import { axios } from 'axios';
 
 export async function GET() {
   
@@ -9,7 +9,7 @@ export async function GET() {
 
   try {
     const response = await axios.get(url);
-    const newsData = response.data;
+    const newsData =await response.data;
     console.log(newsData);
 
     const articlesRef = await setDoc(collection(db, "articles"), { newsData });

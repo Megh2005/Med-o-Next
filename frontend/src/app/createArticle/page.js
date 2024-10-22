@@ -9,12 +9,11 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
-import Spinner from "../../components/Spinner";
 import ArticleCard from "../../components/ArticleCard";
 
 export default function CreateArticle() {
   const router = useRouter();
-  const { user, token, setIsOpen, loading, setLoading } = useAuth();
+  const { user, token, loading, setLoading } = useAuth();
 
   const [articleImg, setArticleImg] = useState(null);
   const [title, setTitle] = useState("");
@@ -98,7 +97,7 @@ export default function CreateArticle() {
       toast.error("You must be registered to create a Article!", {
         theme: "dark",
       });
-      setIsOpen(true);
+      router.push("/");
     }
   }, []);
 
