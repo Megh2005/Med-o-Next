@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiamond, faHeart, faSignOutAlt, faUserShield } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faSignOutAlt, faUserShield } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
@@ -50,7 +49,7 @@ export default function Dashboard() {
         <p className="text-gray-700 text-lg leading-relaxed md:w-2/3">
           <strong className="text-emerald-600 font-bold">
             Are you passionate about health?
-          </strong>{" "}
+          </strong>
           Whether you are a health enthusiast, blogger, content developer,
           doctor, or simply someone who loves sharing health-related insights,
           we invite you to contribute. Submit articles about fitness tips,
@@ -58,7 +57,7 @@ export default function Dashboard() {
           contributions will join our growing repository of trusted, credible
           health content. Your efforts are greatly appreciated!
           <span className="block mt-4 font-semibold text-gray-900">
-            Have any questions? Feel free to{" "}
+            Have any questions? Feel free to
             <a
               href="mailto:info@healthsite.com"
               className="text-emerald-500 underline hover:text-emerald-700"

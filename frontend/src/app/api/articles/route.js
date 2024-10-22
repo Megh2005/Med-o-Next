@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { db } from '../../../utils/firebaseConfig';
 import {collection, getDocs, setDoc } from 'firebase/firestore';
 
@@ -8,7 +7,7 @@ export async function GET() {
   const url = `https://newsapi.org/v2/top-headlines?category=health&apiKey=${apiKey}`;
 
   try {
-    const response = await axios.get(url);
+    const response = await fetch(url);
     const newsData =await response.data;
     console.log(newsData);
 
