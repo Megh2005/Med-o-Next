@@ -1,4 +1,5 @@
 "use client";
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useAuth } from "../../context/AuthContext";
@@ -9,7 +10,10 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
-import ArticleCard from "../../components/ArticleCard";
+import dynamic from 'next/dynamic';
+
+const ArticleCard = dynamic(() => import('../../components/ArticleCard'), { ssr: false });
+
 
 export default function CreateArticle() {
   const router = useRouter();
@@ -93,13 +97,13 @@ export default function CreateArticle() {
   };
 
   useEffect(() => {
-    if (!token) {
+    if (!user) {
       toast.error("You must be registered to create a Article!", {
         theme: "dark",
       });
       router.push("/");
     }
-  }, []);
+  }, [user]);
 
   return (
       <div className="new-Article-wrapper py-8">

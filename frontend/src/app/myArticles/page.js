@@ -4,7 +4,15 @@ import SkeletonLoader from "@/components/SkeletonLoader";
 import Spinner from "@/components/Spinner";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/utils/firebaseConfig";
-import { faCalendarCheck, faCalendarTimes, faEdit, faEye, faFileEdit, faTags, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarCheck,
+  faCalendarTimes,
+  faEdit,
+  faEye,
+  faFileEdit,
+  faTags,
+  faUserPen,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   collection,
@@ -24,11 +32,10 @@ export default function MyArticles() {
   const { user, setLoading, loading } = useAuth();
 
   const [userBlogs, setUserBlog] = useState([]);
-  const[status, setStatus]=useState("");
 
   const fetchUserArticles = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const queryData = await query(
         collection(db, "userArticles"),
         where("userId", "==", user.uid)
@@ -49,11 +56,6 @@ export default function MyArticles() {
     }
   };
 
-  const handleArticleStatus = () => {
-    toast.info("Refreshed!");
-  };
-
-
   useEffect(() => {
     fetchUserArticles();
   }, []);
@@ -61,11 +63,9 @@ export default function MyArticles() {
   return (
     <>
       <div className="my-orders py-8">
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          My Articles
-        </h2>
+        <h2 className="text-2xl font-semibold text-center mb-6">My Articles</h2>
 
-{ loading && <SkeletonLoader />} 
+        {loading && <SkeletonLoader />}
         <div className="container mx-auto px-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {userBlogs.length > 0 ? (
             userBlogs.map((article, index) => (
@@ -75,35 +75,36 @@ export default function MyArticles() {
               >
                 {article.articleImg && (
                   <img
-                    src={article.articleImg? article.articleImg : "/a1.png"}
+                    src={article.articleImg ? article.articleImg : "/a1.png"}
                     alt="parcel"
                     className="w-16 h-16 object-contain mx-auto"
                   />
                 )}
 
-<div className="flex space-x-6">
-                <Link href={`/articles/${article.id}`}
-                className="px-2 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500">
-                  View <FontAwesomeIcon  icon={faEye}/>
-                </Link>
-                {
-                  article.status === "Pending" &&
-                  <Link href={`/articles/${article.id}/edit`}
-                  className="px-2 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500">
-                    Edit <FontAwesomeIcon  icon={faFileEdit}/>
+                <div className="flex space-x-6">
+                  <Link
+                    href={`/articles/${article.id}`}
+                    className="px-2 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500"
+                  >
+                    View <FontAwesomeIcon icon={faEye} />
                   </Link>
-                  
-                }
-
+                  {article.status === "Pending" && (
+                    <Link
+                      href={`/articles/${article.id}/edit`}
+                      className="px-2 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500"
+                    >
+                      Edit <FontAwesomeIcon icon={faFileEdit} />
+                    </Link>
+                  )}
                 </div>
 
                 <div className="flex justify-between gap-4">
-                <p className="text-emerald-700">
-                  <span className="font-semibold">Article Title: </span>{" "}
-                  {article.title}
-                </p>  
+                  <p className="text-emerald-700">
+                    <span className="font-semibold">Article Title: </span>{" "}
+                    {article.title}
+                  </p>
                 </div>
-                
+
                 <p className="text-blue-700">
                   <span className="font-semibold">Author: </span>
                   <FontAwesomeIcon icon={faUserPen} /> {article.author}
@@ -131,7 +132,8 @@ export default function MyArticles() {
                 </div>
                 <p className="text-gray-700">
                   <span className="font-semibold">Published: </span>
-                  <FontAwesomeIcon icon={faCalendarCheck} /> {(article.publishedAt)?.split("T")[0]}
+                  <FontAwesomeIcon icon={faCalendarCheck} />{" "}
+                  {article.publishedAt?.split("T")[0]}
                 </p>
 
                 <p className="text-gray-700">
@@ -154,11 +156,10 @@ export default function MyArticles() {
                 {/* <button className="w-full py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500">
                   Refresh Status
                 </button> */}
-                
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-600">
+            <p className="text-center text-gray-600 flex flex-col space-y-6 my-4 mx-4 py-4">
               No Articles found.
               <Link
                 className="inline-flex items-center justify-center cursor-pointer bg-emerald-500 text-white font-semibold h-4 py-5 px-4 rounded shadow-lg border-2 border-transparent transition-all duration-300 ease-in-out hover:bg-yellow-400 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 active:bg-emerald-600"
