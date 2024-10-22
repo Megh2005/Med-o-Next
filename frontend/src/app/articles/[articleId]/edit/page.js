@@ -48,7 +48,7 @@ export default function EditArticle() {
     }
   };
 
-  console.log(articleData);
+  // console.log(articleData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

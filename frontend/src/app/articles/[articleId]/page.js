@@ -7,36 +7,44 @@ import { db } from "../../../utils/firebaseConfig";
 import { useRouter } from "next/navigation";
 import ArticleCard from "@/components/ArticleCard";
 import Spinner from "@/components/Spinner";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function ArticleDetails() {
     const router = useRouter();
+    const{user, token}=useAuth();
   const { articleId } = useParams(); 
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
   
 
-  useEffect(() => {
-    const fetchArticle = async () => {
-      try {
-        const docRef = doc(db, "userArticles", articleId);
-        const docSnap = await getDoc(docRef);
+  const fetchArticle = async () => {
+    try {
+      const docRef = doc(db, "userArticles", articleId);
+      const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          setArticle(docSnap.data());
-          setStatus(docSnap.data().status);
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.error("Error fetching article: ", error);
-      } finally {
-        setLoading(false);
+      if (docSnap.exists()) {
+        setArticle(docSnap.data());
+        setStatus(docSnap.data().status);
+      } else {
+        console.log("No such document!");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching article: ", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchArticle();
-  }, [articleId]);
+  useEffect(() => {
+    if(user){
+      fetchArticle();
+    } else {
+      toast.error("Kindly login to proceed!", { theme: "dark" });
+      router.push("/");
+    }
+  }, [user, articleId]);
 
 
   if (loading) return <Spinner/>;

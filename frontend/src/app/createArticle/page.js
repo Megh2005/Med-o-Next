@@ -102,8 +102,6 @@ export default function CreateArticle() {
   }, []);
 
   return (
-    <>
-      
       <div className="new-Article-wrapper py-8">
         <div className="container mx-auto max-w-2xl px-4">
         <header className="bg-emerald-400 text-center mx-auto py-4 mb-8 mt-8">
@@ -272,6 +270,5 @@ export default function CreateArticle() {
           </div>
         )}
       </div>
-    </>
   );
 }
