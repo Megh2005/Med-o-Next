@@ -1,9 +1,7 @@
 "use client";
 
-import SkeletonLoader from "@/components/SkeletonLoader";
-import Spinner from "@/components/Spinner";
-import { useAuth } from "@/context/AuthContext";
-import { db } from "@/utils/firebaseConfig";
+import { useAuth } from "../../context/AuthContext";
+import { db } from "../../utils/firebaseConfig";
 import {
   faCalendarCheck,
   faCalendarTimes,
@@ -16,8 +14,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   query,
   where,
@@ -26,6 +22,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import dynamic from "next/dynamic";
+
+const SkeletonLoader = dynamic(() => import("../../components/SkeletonLoader"), { ssr: false });
+
 
 export default function MyArticles() {
   const router = useRouter();

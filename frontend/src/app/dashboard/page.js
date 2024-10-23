@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/firebaseConfig";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
 
 export default function Dashboard() {
   const router = useRouter();

@@ -1,6 +1,5 @@
 "use client";
 
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useAuth } from "../../context/AuthContext";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +12,7 @@ import { db } from "../../utils/firebaseConfig";
 import dynamic from 'next/dynamic';
 
 const ArticleCard = dynamic(() => import('../../components/ArticleCard'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 
 export default function CreateArticle() {
@@ -94,7 +94,7 @@ export default function CreateArticle() {
   };
 
   useEffect(() => {
-    if (!user && typeof document !== "undefined") {
+    if (!user) {
       toast.error("You must be registered to create a Article!", {
         theme: "dark",
       });
