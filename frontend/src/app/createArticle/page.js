@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection} from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 import dynamic from 'next/dynamic';
 
@@ -17,7 +17,7 @@ const ArticleCard = dynamic(() => import('../../components/ArticleCard'), { ssr:
 
 export default function CreateArticle() {
   const router = useRouter();
-  const { user, token, loading, setLoading } = useAuth();
+  const { user, loading, setLoading } = useAuth();
 
   const [articleImg, setArticleImg] = useState(null);
   const [title, setTitle] = useState("");
@@ -78,10 +78,7 @@ export default function CreateArticle() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const articleRef = await addDoc(
-        collection(db, "userArticles"),
-        previewArticleData
-      );
+      const articleRef = await addDoc(collection(db, "userArticles"),previewArticleData);
       setLoading(false);
       if (articleRef) {
         toast.success("Article Submitted for review by Moderators!!🎉", {
@@ -97,7 +94,7 @@ export default function CreateArticle() {
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!user && typeof document !== "undefined") {
       toast.error("You must be registered to create a Article!", {
         theme: "dark",
       });
