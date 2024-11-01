@@ -72,11 +72,8 @@ body:
       label: "Please select the applicable categories"
       description: "Check the boxes that apply to your issue."
       options:
-        - label: "Hacktoberfest"
         - label: "GSSOC'24 Extended"
-        - label: "Read Documentation"
-        - label: "Want more credentials"
-        - label: "Other"
+        - label: "Done Reading Documentation"
     validations:
       required: true
 
