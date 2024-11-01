@@ -74,6 +74,7 @@ body:
       options:
         - label: "GSSOC'24 Extended"
         - label: "Done Reading Documentation"
+        - label: "Checked The Pinned Issue"
     validations:
       required: true
 
