@@ -19,7 +19,7 @@ jobs:
             const issueCreator = issue.user.login;
             const issueNumber = issue.number;
 
-            const greetingMessage = `Hello @${issueCreator}! Your issue #${issueNumber} has been closed. Thank you for your contribution!`;
+            const greetingMessage = `Hello @${issueCreator}! Your issue #${issueNumber} has been closed. Thank you!`;
 
             github.rest.issues.createComment({
               owner: context.repo.owner,
